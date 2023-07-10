@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    {% load static %}
+
+    <title> Online Photo Validator </title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'api/css/bootstrap.css' %}" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="{% static 'api/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'api/css/style.css' %}">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'api/css/grayscale.css' %}" rel="stylesheet">
+
+    <script src="{% static 'api/js/jquer.js' %}"></script>
+
+</head>
+
+<!-- Header -->
+
+
+<body id="page-top" class="about-section text-center">
+
+<div class="container" id="nav-tab-main">
+    <div class="row">
+        <div class="col-xs-12 ">
+            <nav>
+                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                       aria-controls="nav-home" aria-selected="true">Home</a>
+                    <a class="nav-item nav-link" id="nav-config-tab" data-toggle="tab" href="#nav-configuration"
+                       role="tab"
+                       aria-controls="nav-profile" aria-selected="false">Configurations</a>
+                </div>
+            </nav>
+            <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="container d-flex h-100 align-items-center">
+                        <div class="mx-auto text-center">
+                            {#            <h1 class="mx-auto my-0 text-uppercase">Photo Validator</h1>#}
+                            <h2 class="text-white-50 mx-auto mt-2 mb-5">Online Photo Validation System</h2>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8 mx-auto">
+
+
+                                <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
+                                    {% csrf_token %}
+
+                                    <!--  <input type="file" name="file" onchange="selectFolder(event)"  id="uploadFolder" webkitdirectory mozdirectory/><br/><br/>  -->
+
+                                    <select class="form-control" id="categoryDropDown" name="">
+                                        <option value="folder">Validate whole folder</option>
+                                        <option value="file">Validate an image</option>
+                                    </select>
+
+                                    <input type="button" name="file" value="Choose Folder" id="uploadFolder">
+                                    <br/>
+                                    <br/>
+                                    <br/>
+
+                                    <span id="selectedFolderText"></span>
+
+                                    <br/>
+
+                                    <input type="button" value="Submit" id="btnSubmit" disabled/>
+
+                                </form>
+
+                                <span id="result"
+                                      style="color:rgba(255, 255, 255, 0.5) ;font-weight:bold;  font-family: 'Varela Round';  font-size:xx-large"></span>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-configuration" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div class="container d-flex h-100 align-items-center">
+                        <div class="mx-auto text-center">
+                            {#            <h1 class="mx-auto my-0 text-uppercase">Photo Validator</h1>#}
+                            <h2 class="text-white-50 mx-auto mt-2 mb-5">Online Photo Validation System</h2>
+                        </div>
+                    </div>
+
+
+                     <form method="POST" enctype="multipart/form-data" id="fileUploadForm1">
+                                    {% csrf_token %}
+
+
+                    <div id="configInput">
+                    <div id="heightConfig">
+                        <span class="head-text">Height(in Pixel)</span>
+                        <br/>
+                        <span class="simple-text">Minimum: </span>
+
+                        <input type="number" value={{config.min_height}} min="0" max="100000" step="10" id="minHeight"/>
+
+                        <span class="simple-text">Maximum: </span>
+
+
+                        <input type="number" value={{config.max_height}} min="0" max="100000" step="10" id="maxHeight"/>
+                    </div>
+                    <br/><br/> <br/>
+                    <div id="widthConfig">
+                        <span class="head-text">Width(in Pixel)</span>
+                        <br/>
+
+                        <span class="simple-text">Minimum: </span>
+
+                        <input type="number" value={{config.min_width}} min="0" max="100000" step="10" id="minWidth" />
+
+                        <span class="simple-text">Maximum: </span>
+
+                        <input type="number" value={{config.max_width}} min="0" max="100000" step="10" id="maxWidth" />
+                    </div>
+                    <br/><br/> <br/>
+                    <div id="sizeConfig">
+                        <span class="head-text">Size(in KB)</span>
+                        <br/>
+
+                        <span class="simple-text">Minimum: </span>
+
+                        <input type="number" value={{config.min_size}} min="0" max="100000" step="10" id="minSize" />
+
+                        <span class="simple-text">Maximum: </span>
+
+                        <input type="number" value={{config.max_size}} min="0" max="100000" step="10" id="maxSize" />
+                    </div>
+    
+                        </div>
+                         <br/>
+                    <div id="allowedFormat">
+                        <span class="head-text">Allowed Formats</span>
+                        <br/> <br/>
+                        <div class="form-check" id="formatCheck">
+                            <input type="checkbox" class="form-check-input" id="jpgchecked"
+                                    {% if config.is_jpg %}CHECKED{% endif %}>
+                            <label class="form-check-label simple-text" for="exampleCheck1">JPG</label>
+                            <br/> <br/>
+                            <input type="checkbox" class="form-check-input" id="pngchecked"  {% if config.is_png %}CHECKED{% endif %}>
+                            <label class="form-check-label simple-text" for="exampleCheck1">PNG</label>
+                            <br/>
+                            <br/><br/> <br/>
+                        </div>
+                    </div>
+                    <input type="button" value="Save" id="btnSaveConfig"/>
+                     </form>
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <!-- Bootstrap core JavaScript -->
+        <script src="{% static 'api/vendor/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'api/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+        <!-- Plugin JavaScript -->
+        <script src="{% static 'api/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+        <!-- Custom scripts for this template -->
+        <script src="{% static 'api/js/grayscale.min.js' %}"></script>
+
+
+        <script src="{% static 'api/js/logic.js' %}"></script>
+    </div>
+</div>
+
+</body>
+
+</html>
