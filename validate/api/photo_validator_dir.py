@@ -46,30 +46,22 @@ def main(directory):
         is_file_format_valid = file_format_check.check_image(imagePath)
         if not is_file_format_valid:
             messages.append("File format check failed")
-            error_message[image] = messages
-            copy(imagePath, invalidDirectory)
-            continue
+       
 
         is_file_size_valid = file_size_check.check_image(imagePath)
         if not is_file_size_valid:
             messages.append("File size check failed")
-            error_message[image] = messages
-            copy(imagePath, invalidDirectory)
-            continue
+           
 
         is_file_height_valid = file_size_check.check_height(imagePath)
         if not is_file_height_valid:
             messages.append("File height check failed")
-            error_message[image] = messages
-            copy(imagePath, invalidDirectory)
-            continue
+          
 
         is_file_width_valid = file_size_check.check_width(imagePath)
         if not is_file_width_valid:
             messages.append("File width check failed")
-            error_message[image] = messages
-            copy(imagePath, invalidDirectory)
-            continue
+       
 
         # Load the image
         img = cv2.imread(imagePath)
@@ -77,9 +69,6 @@ def main(directory):
         # Check if corrupted image
         if file_format_check.is_corrupted_image(img):
             messages.append("Corrupted Image")
-            error_message[image] = messages
-            copy(imagePath, invalidDirectory)
-            continue
 
         # Check for grey image
         if grey_black_and_white_check.is_grey(img):

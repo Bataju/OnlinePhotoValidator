@@ -1,7 +1,8 @@
 import numpy as np
 
 def background_check(image):
-    tolerance_std = 10.00
+    average_color_threshold = 100
+
     h, w, channels = image.shape
 
     pixels_of_r = []
@@ -14,36 +15,15 @@ def background_check(image):
                 r = image[height, width, 0]
                 g = image[height, width, 1]
                 b = image[height, width, 2]
-                if is_black(r, g, b):
-                    return False
-
+            
                 pixels_of_r.append(r)
                 pixels_of_g.append(g)
                 pixels_of_b.append(b)
 
-    # standard deviation
+    average_r = np.mean(pixels_of_r)
+    average_g = np.mean(pixels_of_g)
+    average_b = np.mean(pixels_of_b)
 
-    std_r = np.std(pixels_of_r)
-    std_g = np.std(pixels_of_g)
-    std_b = np.std(pixels_of_b)
+    average_color = (average_r+average_g+average_b)/3
 
-
-    # print(std_r)
-    # print(std_g)
-    # print(std_b)
-
-    return std_r <= tolerance_std and std_g <= tolerance_std and std_b <= tolerance_std
-
-
-def is_black(r,g,b):
-    return r <= 100 and g <= 100 and b <= 100
-
-
-
-
-
-
-
-
-
-
+    return average_color>=average_color_threshold
