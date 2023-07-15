@@ -11,6 +11,7 @@ import api.file_format_check as file_format_check
 import api.file_size_check as file_size_check
 import api.grey_black_and_white_check as grey_black_and_white_check
 import api.head_check as head_check
+import api.symmetry_check as symmetry_check
 
 logging.basicConfig(level=logging.INFO)
 
@@ -89,6 +90,10 @@ def main(directory):
 
         if head_check.is_eye_covered(img):
             messages.append("Eye checked failed")
+
+         #Check for symmetry
+        if not symmetry_check.issymmetric(img, head_check.valid_head_size):
+            messages.append("Symmetry check failed")
 
         logging.info("Copying valid and invalid images to respective folders...")
         if len(messages) > 0:

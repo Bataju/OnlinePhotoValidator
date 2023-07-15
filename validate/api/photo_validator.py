@@ -10,6 +10,7 @@ import api.file_format_check as file_format_check
 import api.file_size_check as file_size_check
 import api.grey_black_and_white_check as grey_black_and_white_check
 import api.head_check as head_check
+import api.symmetry_check as symmetry_check
 
 logging.basicConfig(level=logging.INFO)
 
@@ -80,6 +81,11 @@ def main(imgPath):
     # Check Eye Covered
     is_eye_covered = head_check.is_eye_covered(img)
     message = message + "Eye check: " + ('Passed' if not is_eye_covered else 'Failed') + "\n"
+    logging.info(message)
+
+    # Check for symmetry
+    is_symmetric = symmetry_check.issymmetric(img, head_check.valid_head_size)
+    message = message + "Symmetry check: " + ('Passed' if is_symmetric else 'Failed') + "\n"
     logging.info(message)
 
     # Display the imported image
