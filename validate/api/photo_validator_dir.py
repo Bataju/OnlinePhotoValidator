@@ -2,6 +2,7 @@ import logging
 import os.path
 import time
 from shutil import copy
+from django.conf import settings
 
 import cv2
 
@@ -13,6 +14,7 @@ import api.grey_black_and_white_check as grey_black_and_white_check
 import api.head_check as head_check
 import api.symmetry_check as symmetry_check
 
+
 logging.basicConfig(level=logging.INFO)
 
 
@@ -22,10 +24,13 @@ def main(directory):
     # make valid and invalid directories
     validDirectory = directory + "/" + "valid/"
     invalidDirectory = directory + "/" + "invalid/"
+    invalid_directory = os.path.join(settings.STATIC_ROOT, 'api', 'templates','api', 'invalid')
     resultFile = directory + '/result.csv'
 
     if  not os.path.exists(validDirectory):
-         os.mkdir(validDirectory)
+        os.mkdir(validDirectory)
+    if  not os.path.exists(invalid_directory):
+        os.mkdir(invalid_directory)
     if not os.path.exists(invalidDirectory):
         os.mkdir(invalidDirectory)
     if os.path.exists(resultFile):
@@ -99,6 +104,7 @@ def main(directory):
         if len(messages) > 0:
             error_message[image] = messages
             copy(imagePath, invalidDirectory)
+            copy(imagePath, invalid_directory)
         else:
             copy(imagePath, validDirectory)
         # Display the imported image

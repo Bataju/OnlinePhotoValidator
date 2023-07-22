@@ -1,5 +1,6 @@
 import logging
-
+import os
+from django.conf import settings
 from django import forms
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -9,6 +10,7 @@ import api.photo_validator_dir  as photo_validator_dir
 import api.tinkerdirectory as tinker
 from .models import Config
 
+path = ""
 
 # Create your views here.
 class NameForm(forms.Form):
@@ -67,6 +69,16 @@ def save_config(request):
 
     return HttpResponse("Updated configurations")
 
-
+def image_gallery(request):
+    folder_path = os.path.join(settings.STATIC_ROOT, 'api', 'templates','api', 'invalid') 
+    
+    images = []
+    for filename in os.listdir(folder_path):
+        if filename.endswith('.jpg') or filename.endswith('.jpeg') or filename.endswith('.png'):
+            imageLocation = os.path.join(folder_path, filename).replace("\\", "/")
+            images.append(imageLocation)
+            print(os.path.join(folder_path, filename))
+    
+    return render(request, 'api/image_gallery.html', {'images': images})
 
 

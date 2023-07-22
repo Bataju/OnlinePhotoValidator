@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invalid Image Gallery</title>
+    <style>
+        .image {
+            display: inline-block;
+            margin: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h2 align="center">Invalid Images</h2>
+    {% for image in images %}
+        <img src="{{image}}" alt={{image}} class="image">
+    {% endfor %}
+</body>
+</html>
