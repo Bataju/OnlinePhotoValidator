@@ -1,7 +1,9 @@
 import numpy as np
+from .models import Config
 
 def background_check(image):
-    average_color_threshold = 100
+    config = Config.objects.all()[0]
+    average_color_threshold = config.bgcolor_threshold
 
     h, w, channels = image.shape
 

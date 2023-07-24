@@ -4,7 +4,7 @@ from PIL import Image
 
 
 def check_image(path):
-    size = os.path.getsize(path) / 1000.00
+    size = os.path.getsize(path) / 1000.00#TO KILOBYTES
 
     tolerance = 10.00
 

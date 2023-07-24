@@ -84,7 +84,7 @@ def main(imgPath):
     logging.info(message)
 
     # Check for symmetry
-    is_symmetric = symmetry_check.issymmetric(img, head_check.valid_head_size)
+    is_symmetric = symmetry_check.issymmetric(img)
     message = message + "Symmetry check: " + ('Passed' if is_symmetric else 'Failed') + "\n"
     logging.info(message)
 

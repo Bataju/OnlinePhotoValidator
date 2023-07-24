@@ -1,10 +1,9 @@
 import cv2
 import numpy as np
+from .models import Config
 
-def check_symmetry_with_head(image, validheadsize):
-    # Perform head size validation
-    if not validheadsize(image):
-        return False
+def check_symmetry_with_head(image):
+    config = Config.objects.all()[0]
 
     # Perform symmetry check
     height, width, _ = image.shape
@@ -29,17 +28,16 @@ def check_symmetry_with_head(image, validheadsize):
     symmetry_score = np.mean(diff_gray)
 
     # Determine a threshold for symmetry
-    threshold = 10.0
+    threshold = config.symmetry_threshold
 
     # Compare the symmetry score with the threshold
     is_symmetric = symmetry_score < threshold
 
     return is_symmetric
 
-def issymmetric(image, validheadsize):
+def issymmetric(image):
     try:
-        # Perform symmetry check with head detection
-        is_symmetric = check_symmetry_with_head(image, validheadsize)
+        is_symmetric = check_symmetry_with_head(image)
         return is_symmetric
     except ValueError as e:
         print("Error:", str(e))

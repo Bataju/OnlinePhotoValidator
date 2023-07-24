@@ -7,7 +7,7 @@ def check_image(path):
 		img = Image.open(path)
 		format = img.format
 		print("format = " , format)
-		return (format == 'JPEG' and config.is_jpg) or (format == 'PNG' and config.is_png)
+		return (format == 'JPG' and config.is_jpg) or (format == 'PNG' and config.is_png) or (format == 'JPEG' and config.is_jpeg)
 	except IOError:
 		return False
 

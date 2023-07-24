@@ -97,7 +97,7 @@ def main(directory):
             messages.append("Eye checked failed")
 
          #Check for symmetry
-        if not symmetry_check.issymmetric(img, head_check.valid_head_size):
+        if not symmetry_check.issymmetric(img):
             messages.append("Symmetry check failed")
 
         logging.info("Copying valid and invalid images to respective folders...")
