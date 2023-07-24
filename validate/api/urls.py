@@ -13,7 +13,7 @@ urlpatterns = [
     path('dialogueBox/', views.dialogueBox, name='dialogueBox'),
     path('saveConfig/', views.save_config, name='save_config'),
     path('', redirect_root),
-    path('gallery/',views.image_gallery, name='image_gallery'),
+    # path('gallery/',views.image_gallery, name='image_gallery'),
 ]
 
 
