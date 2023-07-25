@@ -4,6 +4,8 @@ import time
 from shutil import copy
 from django.conf import settings
 
+from .models import Config
+
 import cv2
 
 import api.background_check as  background_check
@@ -19,6 +21,7 @@ logging.basicConfig(level=logging.INFO)
 
 
 def main(directory):
+    config = Config.objects.all()[0]
     initialTime = time.time()
 
     # make valid and invalid directories
@@ -49,56 +52,63 @@ def main(directory):
             continue
 
         # Check image file format
-        is_file_format_valid = file_format_check.check_image(imagePath)
-        if not is_file_format_valid:
-            messages.append("File format check failed")
+        if config.bypass_format_check==False:
+            is_file_format_valid = file_format_check.check_image(imagePath)
+            if not is_file_format_valid:
+                messages.append("File format check failed")
        
-
-        is_file_size_valid = file_size_check.check_image(imagePath)
-        if not is_file_size_valid:
-            messages.append("File size check failed")
+        if config.bypass_size_check==False:
+            is_file_size_valid = file_size_check.check_image(imagePath)
+            if not is_file_size_valid:
+                messages.append("File size check failed")
            
-
-        is_file_height_valid = file_size_check.check_height(imagePath)
-        if not is_file_height_valid:
-            messages.append("File height check failed")
+        if config.bypass_height_check==False:
+            is_file_height_valid = file_size_check.check_height(imagePath)
+            if not is_file_height_valid:
+                messages.append("File height check failed")
           
-
-        is_file_width_valid = file_size_check.check_width(imagePath)
-        if not is_file_width_valid:
-            messages.append("File width check failed")
+        if config.bypass_width_check==False:
+            is_file_width_valid = file_size_check.check_width(imagePath)
+            if not is_file_width_valid:
+                messages.append("File width check failed")
        
 
         # Load the image
         img = cv2.imread(imagePath)
 
         # Check if corrupted image
-        if file_format_check.is_corrupted_image(img):
-            messages.append("Corrupted Image")
+        if config.bypass_corrupted_check==False:
+            if file_format_check.is_corrupted_image(img):
+                messages.append("Corrupted Image")
 
         # Check for grey image
-        if grey_black_and_white_check.is_grey(img):
-            messages.append("GreyScale Check Failed")
+        if config.bypass_greyness_check==False:
+            if grey_black_and_white_check.is_grey(img):
+                messages.append("GreyScale Check Failed")
 
         # Check image for blurness
-        if blur_check.check_image_blurness(img):
-            messages.append("Blurness Check Failed")
+        if config.bypass_blurness_check==False:
+            if blur_check.check_image_blurness(img):
+                messages.append("Blurness Check Failed")
 
         # Check the background of image
-        if not background_check.background_check(img):
-            messages.append("Background check failed")
+        if config.bypass_background_check==False:
+            if not background_check.background_check(img):
+                messages.append("Background check failed")
 
         # Check image for head position and coverage
+        if config.bypass_head_check==False:
+            if not head_check.valid_head_size(img):
+                messages.append("Head check Faied")
 
-        if not head_check.valid_head_size(img):
-            messages.append("Head check Faied")
-
-        if head_check.is_eye_covered(img):
-            messages.append("Eye checked failed")
+        if config.bypass_eye_check==False:
+            if head_check.is_eye_covered(img):
+                messages.append("Eye checked failed")
 
          #Check for symmetry
-        if not symmetry_check.issymmetric(img):
-            messages.append("Symmetry check failed")
+        if config.bypass_symmetry_check==False:
+            if not symmetry_check.issymmetric(img):
+                messages.append("Symmetry check failed")
 
         logging.info("Copying valid and invalid images to respective folders...")
         if len(messages) > 0:

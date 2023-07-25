@@ -17,3 +17,16 @@ class Config(models.Model):
     greyness_threshold = models.FloatField(default=26)
     symmetry_threshold = models.FloatField(default=20)
 
+    bypass_height_check = models.BooleanField(default=False)
+    bypass_width_check = models.BooleanField(default=False)
+    bypass_size_check = models.BooleanField(default=False)
+    bypass_format_check = models.BooleanField(default=False)
+    bypass_background_check = models.BooleanField(default=False)
+    bypass_blurness_check = models.BooleanField(default=False)
+    bypass_greyness_check = models.BooleanField(default=False)
+    bypass_symmetry_check = models.BooleanField(default=False)
+    bypass_head_check = models.BooleanField(default=False)
+    bypass_eye_check = models.BooleanField(default=False)
+    bypass_corrupted_check = models.BooleanField(default=False)
+
+

@@ -49,8 +49,9 @@ def save_config(request):
     maxWidth= request.POST['maxWidth']
     minSize= request.POST['minSize']
     maxSize= request.POST['maxSize']
-    jpgchecked= request.POST['jpgchecked']
-    pngchecked= request.POST['pngchecked']
+    jpgchecked= request.POST.get('jpgchecked', 'True')
+    pngchecked= request.POST.get('pngchecked', 'True')
+    jpegchecked = request.POST.get('jpegchecked', 'True')
 
     config = Config.objects.all()
     config.delete()
@@ -62,8 +63,9 @@ def save_config(request):
     config.max_width = maxWidth
     config.min_size = minSize
     config.max_size = maxSize
-    config.is_jpg='True' if jpgchecked == 'true' else  'False'
-    config.is_png='True' if pngchecked == 'true' else  'False'
+    config.is_jpg='True' if jpgchecked == 'True' else  'False'
+    config.is_png='True' if pngchecked == 'True' else  'False'
+    config.is_jpeg='True' if jpegchecked == 'True' else  'False'
 
     config.save()
 

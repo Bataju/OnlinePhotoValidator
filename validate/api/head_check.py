@@ -3,7 +3,6 @@ import cv2
 def head_percentage(image):
 
     faces = getFaces(image)
-    print(faces)
 
     # Return false if there's not exactly one face in the picture
     if len(faces) != 1:
