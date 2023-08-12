@@ -76,28 +76,24 @@ def main(directory):
             is_file_format_valid = file_format_check.check_image(imagePath)
             if not is_file_format_valid:
                 messages.append("File format check failed")
-                moveToFolder(invalidFormat, imagePath)
                 continue
        
         if config.bypass_size_check==False:
             is_file_size_valid = file_size_check.check_image(imagePath)
             if not is_file_size_valid:
                 messages.append("File size check failed")
-                moveToFolder(invalidFormat,imagePath)
                 continue
            
         if config.bypass_height_check==False:
             is_file_height_valid = file_size_check.check_height(imagePath)
             if not is_file_height_valid:
                 messages.append("File height check failed")
-                moveToFolder(invalidFormat, imagePath)
                 continue
           
         if config.bypass_width_check==False:
             is_file_width_valid = file_size_check.check_width(imagePath)
             if not is_file_width_valid:
                 messages.append("File width check failed")
-                moveToFolder(invalidFormat, imagePath)
                 continue
        
 
@@ -173,11 +169,6 @@ def main(directory):
     logging.info("Total time taken to validate "
                  + str(len(fileLists)) + " images = " + str(finalTime - initialTime) + " seconds")
     
-    # image_gallery_url = reverse('image_gallery') + '?' + urlencode({'folder_path': invalidDirectory})
-    # print(image_gallery_url)
-    # return redirect(image_gallery_url, folder_path = invalidDirectory)
-
-     # Construct the URL with the folder_path query parameter
     image_gallery_url = 'image_gallery'
     print(image_gallery_url)
     # Redirect to the constructed URL

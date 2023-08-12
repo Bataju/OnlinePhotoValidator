@@ -70,39 +70,9 @@ def save_config(request):
 
     return HttpResponse("Updated configurations")
 
-#def image_gallery(request, folder_path):
-    images = []
-    for filename in os.listdir(folder_path):
-        if filename.endswith('.jpg') or filename.endswith('.jpeg') or filename.endswith('.png'):
-            images.append(os.path.join(folder_path, filename))
-    return render(request, 'api/image_gallery.html', {'images': images})
-
-# def image_gallery(request):
-#     folder_path_encoded = request.GET.get('folder_path', '')  # Get the value of the folder_path query parameter
-
-#     # Decode the URL-encoded folder_path to get the original path
-#     folder_path = urllib.parse.unquote(folder_path_encoded)
-
-#     print(folder_path)
-
-#     images = []
-
-#     # Logic to list images based on the folder_path
-#     if folder_path:
-#         for filename in os.listdir(folder_path):
-#             if filename.endswith('.jpg') or filename.endswith('.jpeg') or filename.endswith('.png'):
-#                 images.append(os.path.join(folder_path, filename))
-
-#     return render(request, 'api/image_gallery.html', {'images': images})
-
-# views.py
-
-
 def image_gallery(request):
-    # folder_path = request.GET.get('folder_path', '')
     images = []
 
-    # Construct the path to the directory where invalid images are stored
     invalid_images_directory = os.path.join(settings.STATIC_ROOT, 'api', 'static', 'api', 'images', 'invalid')
     
     for filename in os.listdir(invalid_images_directory):
