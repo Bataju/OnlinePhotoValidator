@@ -19,6 +19,15 @@ import api.symmetry_check as symmetry_check
 
 logging.basicConfig(level=logging.INFO)
 
+def moveToFolder(label,imagePath):
+
+    folderName = os.path.join(os.getcwd(),label)
+    os.makedirs(folderName, exist_ok = True)
+
+    _, imageFilename = os.path.split(imagePath)
+    destinationPath = os.path.join(folderName,imageFilename)
+    os.rename(imagePath,destinationPath)
+
 
 def main(directory):
     config = Config.objects.all()[0]
@@ -27,6 +36,7 @@ def main(directory):
     # make valid and invalid directories
     validDirectory = directory + "/" + "valid/"
     invalidDirectory = directory + "/" + "invalid/"
+    invalidFormat = directory + "/" + "invalidFormat"
     # invalid_directory = os.path.join(settings.STATIC_ROOT, 'api', 'templates','api', 'invalid')
     resultFile = directory + '/result.csv'
 
@@ -56,21 +66,29 @@ def main(directory):
             is_file_format_valid = file_format_check.check_image(imagePath)
             if not is_file_format_valid:
                 messages.append("File format check failed")
+                moveToFolder(invalidFormat, imagePath)
+                continue
        
         if config.bypass_size_check==False:
             is_file_size_valid = file_size_check.check_image(imagePath)
             if not is_file_size_valid:
                 messages.append("File size check failed")
+                moveToFolder(invalidFormat,imagePath)
+                continue
            
         if config.bypass_height_check==False:
             is_file_height_valid = file_size_check.check_height(imagePath)
             if not is_file_height_valid:
                 messages.append("File height check failed")
+                moveToFolder(invalidFormat, imagePath)
+                continue
           
         if config.bypass_width_check==False:
             is_file_width_valid = file_size_check.check_width(imagePath)
             if not is_file_width_valid:
                 messages.append("File width check failed")
+                moveToFolder(invalidFormat, imagePath)
+                continue
        
 
         # Load the image
@@ -113,10 +131,10 @@ def main(directory):
         logging.info("Copying valid and invalid images to respective folders...")
         if len(messages) > 0:
             error_message[image] = messages
-            copy(imagePath, invalidDirectory)
+            moveToFolder(invalidDirectory, imagePath)
             # copy(imagePath, invalid_directory)
         else:
-            copy(imagePath, validDirectory)
+            moveToFolder(validDirectory,imagePath)
         # Display the imported image
         # cv2.imshow('Application Photo', img)
         # cv2.waitKey(0)
