@@ -27,7 +27,7 @@ def getFaces(image):
     haar_face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 
     # Detect multiscale (some images may be closer to camera than others) images
-    return haar_face_cascade.detectMultiScale(gray_img, scaleFactor=1.3, minNeighbors=3);
+    return haar_face_cascade.detectMultiScale(gray_img, scaleFactor=1.1, minNeighbors=15);
 
 def is_eye_covered(image):
     faces = getFaces(image)

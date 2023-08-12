@@ -2,7 +2,11 @@ import logging
 import os.path
 import time
 from shutil import copy
+from shutil import move
 from django.conf import settings
+from django.shortcuts import redirect
+from django.urls import reverse
+from urllib.parse import urlencode
 
 from .models import Config
 
@@ -26,16 +30,23 @@ def main(directory):
 
     # make valid and invalid directories
     validDirectory = directory + "/" + "valid/"
-    invalidDirectory = directory + "/" + "invalid/"
+    # invalidDirectory = directory + "/" + "invalid/"
+    invalid_images_static_directory = os.path.join(settings.STATIC_ROOT, 'api', 'static', 'api', 'images', 'invalid')
+    
     # invalid_directory = os.path.join(settings.STATIC_ROOT, 'api', 'templates','api', 'invalid')
     resultFile = directory + '/result.csv'
 
-    if  not os.path.exists(validDirectory):
+    if not os.path.exists(validDirectory):
         os.mkdir(validDirectory)
     # if  not os.path.exists(invalid_directory):
     #     os.mkdir(invalid_directory)
-    if not os.path.exists(invalidDirectory):
-        os.mkdir(invalidDirectory)
+
+    # if not os.path.exists(invalidDirectory):
+    #     os.mkdir(invalidDirectory)
+
+    # Create the directory if it doesn't exist
+    if not os.path.exists(invalid_images_static_directory):
+        os.makedirs(invalid_images_static_directory)
     if os.path.exists(resultFile):
         os.remove(resultFile)
 
@@ -113,10 +124,11 @@ def main(directory):
         logging.info("Copying valid and invalid images to respective folders...")
         if len(messages) > 0:
             error_message[image] = messages
-            copy(imagePath, invalidDirectory)
+            #move(imagePath, invalidDirectory)
+            move(imagePath, invalid_images_static_directory)
             # copy(imagePath, invalid_directory)
         else:
-            copy(imagePath, validDirectory)
+            move(imagePath, validDirectory)
         # Display the imported image
         # cv2.imshow('Application Photo', img)
         # cv2.waitKey(0)
@@ -143,7 +155,16 @@ def main(directory):
     logging.info("Total Invalid Image = " + str(len(error_message)))
     logging.info("Total time taken to validate "
                  + str(len(fileLists)) + " images = " + str(finalTime - initialTime) + " seconds")
+    
+    # image_gallery_url = reverse('image_gallery') + '?' + urlencode({'folder_path': invalidDirectory})
+    # print(image_gallery_url)
+    # return redirect(image_gallery_url, folder_path = invalidDirectory)
 
+     # Construct the URL with the folder_path query parameter
+    image_gallery_url = 'image_gallery'
+    print(image_gallery_url)
+    # Redirect to the constructed URL
+    return redirect(image_gallery_url)
 
 if __name__ == '__main__':
     main()

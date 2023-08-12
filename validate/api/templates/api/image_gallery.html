@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Invalid Image Gallery</title>
+    <title>Invalid Image Gallery
+        {% load static %}
+    </title>
     <style>
         .image {
             display: inline-block;
@@ -12,7 +14,8 @@
 <body>
     <h2 align="center">Invalid Images</h2>
     {% for image in images %}
-        <img src="{{image}}" alt={{image}} class="image">
+        <!-- <img src="{{image}}" alt={{image}} class="image"> -->
+        <img src="{% static 'api/images/invalid/'|add:image %}" alt="{{ image }}" class="image">
     {% endfor %}
 </body>
 </html>

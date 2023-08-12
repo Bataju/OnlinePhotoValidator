@@ -1,5 +1,7 @@
 from django.urls import path
 from django.http import HttpResponseRedirect
+from django.urls import re_path
+
 
 from . import views
 
@@ -13,7 +15,9 @@ urlpatterns = [
     path('dialogueBox/', views.dialogueBox, name='dialogueBox'),
     path('saveConfig/', views.save_config, name='save_config'),
     path('', redirect_root),
-    # path('gallery/',views.image_gallery, name='image_gallery'),
+    path('image_gallery/', views.image_gallery, name='image_gallery'),
+    # re_path(r'^image_gallery/$', views.image_gallery, name='image_gallery'),
+    # path('image_gallery/<path:folder_path>/',views.image_gallery, name='image_gallery'),
 ]
 
 
