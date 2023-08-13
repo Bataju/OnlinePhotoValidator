@@ -21,7 +21,34 @@
     <link href="{% static 'api/css/grayscale.css' %}" rel="stylesheet">
 
     <script src="{% static 'api/js/jquer.js' %}"></script>
-
+    <script>
+        $(document).ready(function() {
+            // Apply the adminButton class styling
+            $('.adminButton').css({
+                'position' : 'absolute',
+                'right' : '0',
+                'top' :  '0',
+                'padding': '10px 20px',
+                'background-color': '#4CAF50',
+                'color': 'white',
+                'border': 'none',
+                'border-radius': '5px',
+                'cursor': 'pointer'
+            });
+            $('.redirectButton').css({
+                'position' : 'absolute',
+                'right' : '0',
+                'bottom' :  '0',
+                'padding': '10px 20px',
+                'background-color': '#4CAF50',
+                'color': 'white',
+                'border': 'none',
+                'border-radius': '5px',
+                'cursor': 'pointer'
+            });
+        });
+        
+    </script>
 </head>
 
 <!-- Header -->
@@ -53,7 +80,10 @@
                         <div class="row">
                             <div class="col-lg-8 mx-auto">
 
-
+                                <form method = "post" action="{% url 'admin:index' %}">
+                                    {% csrf_token %}
+                                    <button class = "adminButton" type = "submit">Admin</button>
+                                </form>
                                 <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
                                     {% csrf_token %}
 
@@ -78,7 +108,11 @@
                                 </form>
 
                                 <span id="result" style="color:rgba(255, 255, 255, 0.5) ;font-weight:bold;  font-family: 'Varela Round';  font-size:xx-large"></span>
-                                <input type="button" value="Show Invalid" id="showInvalid" disabled/>
+                                <form method="post" action="/image_gallery/">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="redirect" value="true">
+                                    <button type="submit" class="redirectButton">Show invalid</button>
+                                </form>
 
                             </div>
                         </div>
