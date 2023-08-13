@@ -1,139 +1,135 @@
-#result{
-color:blue;
-font-weight:bold;
+/* Navigation Tabs */
+#nav-tab {
+  background: #111;
+
 }
 
-#uploadFolder{
-  margin-left: 23%;
+#nav-tab-main {
+  margin-top: -2%;
+  display: flex;
+  justify-content: center;
 }
 
-#file{
-  margin: 0;
+.nav-link {
+  color: #fff;
+  border: none;
+  padding: 1rem 2rem;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.nav-link.active {
+  background: #16a085;
+  color: #fff;
+}
+/* About Section */
+.about-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5rem 0; /* Adjust top and bottom padding as needed */
+  background: rgba(22, 22, 22, 0.9);
+  min-height: 100vh;
+}
+
+.about-section p {
+  margin-bottom: 2rem; /* Reduce the margin bottom to adjust spacing */
+}
+
+#uploadFolder,
+#btnSubmit,
+#btnSaveConfig,
+#showInvalid {
+  font-weight: bold;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  background: #16a085;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+#uploadFolder:hover,
+#btnSubmit:hover,
+#btnSaveConfig:hover,
+#showInvalid:hover {
+  color: #000; 
+}
+#btnSubmit:disabled, 
+#showInvalid:disabled {
+  background: rgba(255, 255, 255, 0.5);
+  color: #000;
+  cursor: not-allowed;
+}
+
+#allowedFormat {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 20px;
+  margin-left: 58%;
+  margin-top: -35%; /* Adjust this value as needed */
   width: 100%;
-  height: 100%;
-  outline: none;
-  opacity: 0;
 }
-
-#btnSubmit{
-  margin: 0;
-  color: #fff;
-  background: #16a085;
-  border: none;
-  width: 40%;
-  height: 10%;
-  border-radius: 4px;
-  border-bottom: 4px solid #117A60;
-  transition: all .2s ease;
-  outline: none;
-}
-
-#allowedFormat{
-margin-left:60%;
-margin-top:-35%;
-width:100%
-
-}
-
+    
 #configInput {
-
-margin-left:-30%
- 
-}
-
-
-#btnSaveConfig {
-  margin: 0;
-  color: #fff;
-  background: #16a085;
-  border: none;
-  width: 20%;
-  height: 10%;
-  border-radius: 4px;
-  border-bottom: 4px solid #117A60;
-  transition: all .2s ease;
-  outline: none;
-  margin-top:20%;
-  margin-left:50%;
+  margin-left: -30%;
 }
 
 #othersFormat {
-  margin-left:13%
+  margin-left: 13%;
 }
 
-#othersFormatText{
-   margin-left:15%
+#othersFormatText {
+  margin-left: 15%;
 }
-
-
 #uploadFolder{
   font-weight: bold;
   margin-top:11%;
   margin-left: 1%;
-
-
 }
 
-#selectedFolderText{
-  color:rgba(255, 255, 255, 0.5) ;
-  font-weight:bold;
+/* Selected Folder Text Styles */
+#selectedFolderText {
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: bold;
   font-size: medium;
   width: 100%;
 }
-
-#categoryDropDown{
-  margin-left: 25%;
-  font-weight: bold;
-}
-
-#numberInput{
-  float:left;
-}
-
-
-
-#nav-tab-main{
-  margin-top: -2%;
-}
+  
+  #categoryDropDown{
+    margin-left: 25%;
+    font-weight: bold;
+  }
+  
+  #numberInput{
+    float:left;
+  }  
 
 
+  html, section {
+      margin: 0;
+      height: 100%;
+  }
 
-html, section {
-    margin: 0;
-    height: 100%;
-}
+  .simple-text{
+    color:rgba(255, 255, 255, 0.5) ;
+    font-weight:bold;
+    font-size: medium;
+  }
+  
+  .head-text{
+    text-decoration: underline;
+  
+  }
+  #result {
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: bold;
+    padding: 20px; 
+    font-family: 'Varela Round';
+    font-size: xx-large;
+  }
 
+  
 
-
-.simple-text{
-  color:rgba(255, 255, 255, 0.5) ;
-  font-weight:bold;
-  font-size: medium;
-}
-
-.head-text{
-  color:rgba(255, 255, 255, 0.5) ;
-  font-weight:bold;
-  font-size: medium;
-  text-decoration: underline;
-
-}
-
-
-.about-section {
-  padding-top: 5rem;
-  /*background: -webkit-gradient(linear, left top, left bottom, from(#161616), color-stop(75%, rgba(22, 22, 22, 0.9)), to(rgba(255, 255, 255, 0.8)));*/
-  /*background: linear-gradient(to bottom, #161616 0%, rgba(22, 22, 22, 0.9) 75%, rgba(255, 255, 255, 0.8) 100%);*/
-  /*  background: -webkit-linear-gradient(top, rgba(22, 22, 22, 0.9) 80%, white 20%);*/
-  /*    background: -moz-linear-gradient(top, rgba(22, 22, 22, 0.9) 80%, white 20%);*/
-  /*    background: -ms-linear-gradient(top,  rgba(22, 22, 22, 0.9) 80%, white 20%);*/
-  /*    background: linear-gradient(top, black 80%, white 20%);*/
-
-  background: rgba(22, 22, 22, 0.9);
-
-}
-
-.about-section p {
-  margin-bottom: 5rem;
-}
-
+  
