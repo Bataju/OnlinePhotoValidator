@@ -24,8 +24,6 @@ def startPage(request):
 
 def process_image(request):
 
-    #print(request.POST)
-
     path = request.POST['path']
     type = request.POST['type']
 
@@ -77,29 +75,36 @@ def image_gallery(request):
 
     invalid_images_directory = os.path.join(settings.STATIC_ROOT, 'api', 'static', 'api', 'images', 'invalid')
     
-     # Read the reasons for invalidity from the results.csv file
+     #read the reasons for invalidity from the results.csv file
     result_file = os.path.join(settings.STATIC_ROOT, 'api', 'static', 'api', 'images', 'result.csv')
-    reasons_for_invalidity = {}
+    reasons_for_invalidity = {}#a dict
+
+    # with open(result_file, 'r') as csv_file:
+    #     csv_reader = csv.reader(csv_file)
+    #     for row in csv_reader:
+    #         image_filename = row[0]  #the image filename is in the first column
+    #         reasons = row[1:]  #the reasons start from the second column
+    #         reasons_for_invalidity[image_filename] = reasons
 
     with open(result_file, 'r') as csv_file:
         csv_reader = csv.reader(csv_file)
         for row in csv_reader:
-            image_filename = row[0]  # Assuming the image filename is in the first column
-            reasons = row[1:]  # Assuming the reasons start from the second column
+            print(row)
+            image_filename = row[0]  # The image filename is in the first column
+            reasons = row[1:] # Initialize the list of reasons
+            print(reasons)
             reasons_for_invalidity[image_filename] = reasons
 
-    # ... (existing code)
-
-    # Pass the image information and reasons_for_invalidity to the template
     context = {
         'images_with_paths': images,
         'reasons_for_invalidity': reasons_for_invalidity,
     }
+
     for filename in os.listdir(invalid_images_directory):
         if filename.endswith('.jpg') or filename.endswith('.jpeg') or filename.endswith('.png'):
             images.append(os.path.join(invalid_images_directory, filename))
 
-    return render(request, 'api/image_gallery.html', {'images': images})
+    return render(request, 'api/image_gallery.html', context)
 
 def process_selected_images(request):
     if request.method == 'POST':

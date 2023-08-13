@@ -114,12 +114,12 @@ def main(directory):
         # Check for grey image
         if config.bypass_greyness_check == False:
             if grey_black_and_white_check.is_grey(img):
-                messages.append("GreyScale Check Failed")
+                messages.append("GreyScale check failed")
 
         # Check image for blurness
         if config.bypass_blurness_check == False:
             if blur_check.check_image_blurness(img):
-                messages.append("Blurness Check Failed")
+                messages.append("Blurness check failed")
 
         # Check the background of image
         if config.bypass_background_check == False:
@@ -149,10 +149,6 @@ def main(directory):
             # copy(imagePath, invalid_directory)
         else:
             move(imagePath, validDirectory)
-        # Display the imported image
-        # cv2.imshow('Application Photo', img)
-        # cv2.waitKey(0)
-        # cv2.destroyAllWindows()
 
     csv_string = ""
 
@@ -160,9 +156,11 @@ def main(directory):
         for name in error_message.keys():
             csv_string = csv_string + name
             for category in error_message[name]:
-                csv_string = csv_string + ',' + category + "\n"
+                csv_string = csv_string + ',' + category
+            csv_string = csv_string  + "\n"
     else:
         print("There are no invalid images")
+
     logging.info("Writing result to result.csv... ")
     f = open(resultFile_static_directory, 'w')
     f.write(csv_string)  # Give your csv text here.
@@ -176,9 +174,10 @@ def main(directory):
     logging.info("Total time taken to validate "
                  + str(len(fileLists)) + " images = " + str(finalTime - initialTime) + " seconds")
 
-    image_gallery_url = 'image_gallery'
+    image_gallery_url = 'image_gallery'#view name
+
     print(image_gallery_url)
-    # Redirect to the constructed URL
+
     return redirect(image_gallery_url)
 
 
