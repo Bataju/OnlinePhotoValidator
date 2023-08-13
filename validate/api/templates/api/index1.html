@@ -20,7 +20,7 @@
     <!-- Custom styles for this template -->
     <link href="{% static 'api/css/grayscale.css' %}" rel="stylesheet">
 
-    <script src="{% static 'api/js/jquery.js' %}"></script>
+    <script src="{% static 'api/js/jquer.js' %}"></script>
 
 </head>
 
@@ -58,21 +58,16 @@
                                     {% csrf_token %}
 
                                     <!--  <input type="file" name="file" onchange="selectFolder(event)"  id="uploadFolder" webkitdirectory mozdirectory/><br/><br/>  -->
-
+                                    <br>
                                     <select class="form-control" id="categoryDropDown" name="">
                                         <option value="folder">Validate whole folder</option>
                                         <option value="file">Validate an image</option>
                                     </select>
-
+                                
                                     <input type="button" name="file" value="Choose Folder" id="uploadFolder">
                                     <br/>
-                                    <br/>
-                                    <br/>
-
+                                    <br>
                                     <span id="selectedFolderText"></span>
-
-                                    <br/>
-
                                     <input type="button" value="Submit" id="btnSubmit" disabled/>
 
                                 </form>
@@ -100,40 +95,37 @@
 
                     <div id="configInput">
                     <div id="heightConfig">
-                        <span class="head-text">Height(in Pixel)</span>
-                        <br/>
+                        <span class="head-text">Height(in Pixel):</span>
                         <span class="simple-text">Minimum: </span>
 
                         <input type="number" value={{config.min_height}} min="0" max="100000" step="10" id="minHeight"/>
 
-                        <span class="simple-text">Maximum: </span>
+                        <span class="simple-text"> Maximum: </span>
 
 
                         <input type="number" value={{config.max_height}} min="0" max="100000" step="10" id="maxHeight"/>
                     </div>
                     <br/><br/> <br/>
                     <div id="widthConfig">
-                        <span class="head-text">Width(in Pixel)</span>
-                        <br/>
+                        <span class="head-text">Width(in Pixel):</span>
 
                         <span class="simple-text">Minimum: </span>
 
                         <input type="number" value={{config.min_width}} min="0" max="100000" step="10" id="minWidth" />
 
-                        <span class="simple-text">Maximum: </span>
+                        <span class="simple-text"> Maximum: </span>
 
                         <input type="number" value={{config.max_width}} min="0" max="100000" step="10" id="maxWidth" />
                     </div>
                     <br/><br/> <br/>
                     <div id="sizeConfig">
-                        <span class="head-text">Size(in KB)</span>
-                        <br/>
+                        <span class="head-text">Size(in KB):</span>
 
                         <span class="simple-text">Minimum: </span>
 
                         <input type="number" value={{config.min_size}} min="0" max="100000" step="10" id="minSize" />
 
-                        <span class="simple-text">Maximum: </span>
+                        <span class="simple-text"> Maximum: </span>
 
                         <input type="number" value={{config.max_size}} min="0" max="100000" step="10" id="maxSize" />
                     </div>
@@ -142,7 +134,7 @@
                          <br/>
                     <div id="allowedFormat">
                         <span class="head-text">Allowed Formats</span>
-                        <br/> <br/>
+                        <br/>
                         <div class="form-check" id="formatCheck">
                             <input type="checkbox" class="form-check-input" id="jpgchecked"
                                     {% if config.is_jpg %}CHECKED{% endif %}>

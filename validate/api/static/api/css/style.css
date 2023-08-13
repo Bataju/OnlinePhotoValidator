@@ -6,14 +6,16 @@
 
 #nav-tab-main {
   margin-top: -2%;
+  margin-bottom: 18px;
   display: flex;
   justify-content: center;
+  font-size: 20px;
 }
 
 .nav-link {
   color: #fff;
   border: none;
-  padding: 1rem 2rem;
+  padding: 0.5rem 1rem; 
   font-weight: bold;
   transition: background 0.3s;
 }
@@ -39,15 +41,27 @@
 
 #uploadFolder,
 #btnSubmit,
-#btnSaveConfig,
-#showInvalid {
+#btnSaveConfig {
+  align-items: center;
   font-weight: bold;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
+  font-size: 19px;
+  margin: 0.5rem auto 1rem auto;
   background: #16a085;
   color: #fff;
   border: none;
-  padding: 0.5rem 1rem;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+#showInvalid {
+  display: block;
+  margin: 0.5rem auto;
+  font-size: 19px;
+  font-weight: bold;
+  background: #16a085;
+  color: #fff;
+  border: none;
+  padding: 0.3rem 0.8rem;
   cursor: pointer;
   transition: background 0.3s;
 }
@@ -64,16 +78,41 @@
   cursor: not-allowed;
 }
 
-#allowedFormat {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 20px;
-  margin-left: 58%;
-  margin-top: -35%; /* Adjust this value as needed */
-  width: 100%;
-}
-    
 #configInput {
-  margin-left: -30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Add this line */
+}
+
+#heightConfig,
+#widthConfig,
+#sizeConfig {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Add this line */
+}
+
+#heightConfig span,
+#widthConfig span,
+#sizeConfig span {
+  margin: 1rem;
+}
+
+#heightConfig input,
+#widthConfig input,
+#sizeConfig input {
+  margin: 0.5rem;
+}
+
+#allowedFormat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3%; /* Adjust margin as needed */
+  order: 3; /* Add this line */
 }
 
 #othersFormat {
@@ -85,7 +124,7 @@
 }
 #uploadFolder{
   font-weight: bold;
-  margin-top:11%;
+  margin-top:8%;
   margin-left: 1%;
 }
 
@@ -98,6 +137,7 @@
 }
   
   #categoryDropDown{
+    margin-top: 3%;
     margin-left: 25%;
     font-weight: bold;
   }
@@ -106,30 +146,22 @@
     float:left;
   }  
 
-
-  html, section {
-      margin: 0;
-      height: 100%;
-  }
-
   .simple-text{
     color:rgba(255, 255, 255, 0.5) ;
     font-weight:bold;
-    font-size: medium;
+    font-size: 16px;
   }
-  
   .head-text{
+    color: #fff;
+    padding: 2px;
     text-decoration: underline;
   
   }
   #result {
     color: rgba(255, 255, 255, 0.5);
     font-weight: bold;
-    padding: 20px; 
+    padding: 20px;
+    margin: 20px; 
     font-family: 'Varela Round';
     font-size: xx-large;
   }
-
-  
-
-  
