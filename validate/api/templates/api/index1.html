@@ -25,15 +25,15 @@
         $(document).ready(function() {
             // Apply the adminButton class styling
             $('.adminButton').css({
-                'position' : 'absolute',
-                'right' : '0',
-                'top' :  '0',
-                'padding': '10px 20px',
-                'background-color': '#4CAF50',
-                'color': 'white',
-                'border': 'none',
-                'border-radius': '5px',
-                'cursor': 'pointer'
+                // 'position' : 'absolute',
+                // 'right' : '0',
+                // 'top' :  '0',
+                // 'padding': '10px 20px',
+                // 'background-color': '#4CAF50',
+                // 'color': 'white',
+                // 'border': 'none',
+                // 'border-radius': '5px',
+                // 'cursor': 'pointer'
             });
             $('.redirectButton').css({
                 'position' : 'absolute',
@@ -47,7 +47,7 @@
                 'cursor': 'pointer'
             });
         });
-        
+
     </script>
 </head>
 
@@ -80,10 +80,12 @@
                         <div class="row">
                             <div class="col-lg-8 mx-auto">
 
-                                <form method = "post" action="{% url 'admin:index' %}">
+                                <form method="post" action="{% url 'admin:index' %}" class="admin-form">
                                     {% csrf_token %}
-                                    <button class = "adminButton" type = "submit">Admin</button>
+                                    <button class="adminButton" type="submit">Admin</button>
                                 </form>
+                                <!-- <hr class="full-width-hr"> -->
+
                                 <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
                                     {% csrf_token %}
 
@@ -101,15 +103,12 @@
                                     <input type="button" value="Submit" id="btnSubmit" disabled/>
 
                                 </form>
-
-                                <input type="button" value="Show Invalid" id="showInvalid" disabled/>
-                                <span id="result"></span>
+                                <!-- <input type="button" value="Show Invalid" id="showInvalid" disabled/> -->
                                 <form method="post" action="/image_gallery/">
                                     {% csrf_token %}
                                     <input type="hidden" name="redirect" value="true">
-                                    <button type="submit" class="redirectButton">Show invalid</button>
+                                    <button type="submit" class="showInvalid">Show invalid</button>
                                 </form>
-
                             </div>
                         </div>
 
