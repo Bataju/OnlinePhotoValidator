@@ -32,7 +32,7 @@ def process_image(request):
     if type == 'folder':
       request.session['path'] = path
       photo_validator_dir.main(path)
-      return redirect('image_gallery')
+      return redirect('http://127.0.0.1:8000/image_gallery')
     else:
       message = photo_validator.main(path)
       return HttpResponse("Results:" + "\n" + message)

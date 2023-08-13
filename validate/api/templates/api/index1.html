@@ -73,7 +73,7 @@
                     <div class="container d-flex h-100 align-items-center">
                         <div class="mx-auto text-center">
                             {#            <h1 class="mx-auto my-0 text-uppercase">Photo Validator</h1>#}
-                            <h2 class="text-white-50 mx-auto mt-2 mb-5">Online Photo Validation System</h2>
+                            <h2 class="text-white-50 mx-auto mt-2 mb-5">Photo Validation System</h2>
                         </div>
                     </div>
                     <div class="container">
@@ -108,11 +108,14 @@
                                 </form>
 
                                 <span id="result" style="color:rgba(255, 255, 255, 0.5) ;font-weight:bold;  font-family: 'Varela Round';  font-size:xx-large"></span>
-                                <form method="post" action="/image_gallery/">
+                                <!-- <form method="post" action="/image_gallery/">
                                     {% csrf_token %}
                                     <input type="hidden" name="redirect" value="true">
                                     <button type="submit" class="redirectButton">Show invalid</button>
-                                </form>
+                                </form> -->
+                                <!-- <form action="/image_gallery/" method="get">
+                                    <button type="submit" class="redirectButton">Show invalid</button>
+                                </form> -->
 
                             </div>
                         </div>
@@ -123,7 +126,7 @@
                     <div class="container d-flex h-100 align-items-center">
                         <div class="mx-auto text-center">
                             {#            <h1 class="mx-auto my-0 text-uppercase">Photo Validator</h1>#}
-                            <h2 class="text-white-50 mx-auto mt-2 mb-5">Online Photo Validation System</h2>
+                            <h2 class="text-white-50 mx-auto mt-2 mb-5">Photo Validation System</h2>
                         </div>
                     </div>
 

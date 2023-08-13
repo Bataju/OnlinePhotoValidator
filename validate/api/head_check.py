@@ -41,9 +41,6 @@ def is_eye_covered(image):
         eyes = eye_cascade.detectMultiScale(roi_gray)
     return len(eyes) == 0
 
-
-
-
 def valid_head_size(image):
     if not head_percentage(image):
         return False

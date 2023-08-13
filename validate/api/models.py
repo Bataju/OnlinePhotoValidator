@@ -12,9 +12,9 @@ class Config(models.Model):
     is_png = models.BooleanField()
     is_jpeg = models.BooleanField(default=True)
     bgcolor_threshold = models.FloatField(default=50)
-    blurness_threshold = models.FloatField(default=50)
-    pixelated_threshold = models.FloatField(default=20)
-    greyness_threshold = models.FloatField(default=26)
+    blurness_threshold = models.FloatField(default=90)
+    pixelated_threshold = models.FloatField(default=75)
+    greyness_threshold = models.FloatField(default=0)
     symmetry_threshold = models.FloatField(default=20)
 
     bypass_height_check = models.BooleanField(default=False)
