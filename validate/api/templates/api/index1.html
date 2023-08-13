@@ -25,15 +25,15 @@
         $(document).ready(function() {
             // Apply the adminButton class styling
             $('.adminButton').css({
-                'position' : 'absolute',
-                'right' : '0',
-                'top' :  '0',
-                'padding': '10px 20px',
-                'background-color': '#4CAF50',
-                'color': 'white',
-                'border': 'none',
-                'border-radius': '5px',
-                'cursor': 'pointer'
+                // 'position' : 'absolute',
+                // 'right' : '0',
+                // 'top' :  '0',
+                // 'padding': '10px 20px',
+                // 'background-color': '#4CAF50',
+                // 'color': 'white',
+                // 'border': 'none',
+                // 'border-radius': '5px',
+                // 'cursor': 'pointer'
             });
             $('.redirectButton').css({
                 'position' : 'absolute',
@@ -47,7 +47,7 @@
                 'cursor': 'pointer'
             });
         });
-        
+
     </script>
 </head>
 
@@ -80,32 +80,30 @@
                         <div class="row">
                             <div class="col-lg-8 mx-auto">
 
-                                <form method = "post" action="{% url 'admin:index' %}">
+                                <form method="post" action="{% url 'admin:index' %}" class="admin-form">
                                     {% csrf_token %}
-                                    <button class = "adminButton" type = "submit">Admin</button>
+                                    <button class="adminButton" type="submit">Admin</button>
                                 </form>
+                                <!-- <hr class="full-width-hr"> -->
+
                                 <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
                                     {% csrf_token %}
 
                                     <!--  <input type="file" name="file" onchange="selectFolder(event)"  id="uploadFolder" webkitdirectory mozdirectory/><br/><br/>  -->
-
+                                    <br>
                                     <select class="form-control" id="categoryDropDown" name="">
                                         <option value="folder">Validate whole folder</option>
                                         <option value="file">Validate an image</option>
                                     </select>
-
+                                
                                     <input type="button" name="file" value="Choose Folder" id="uploadFolder">
                                     <br/>
-                                    <br/>
-                                    <br/>
-
+                                    <br>
                                     <span id="selectedFolderText"></span>
-
-                                    <br/>
-
                                     <input type="button" value="Submit" id="btnSubmit" disabled/>
 
                                 </form>
+<<<<<<< HEAD
 
                                 <span id="result" style="color:rgba(255, 255, 255, 0.5) ;font-weight:bold;  font-family: 'Varela Round';  font-size:xx-large"></span>
                                 <!-- <form method="post" action="/image_gallery/">
@@ -117,6 +115,14 @@
                                     <button type="submit" class="redirectButton">Show invalid</button>
                                 </form> -->
 
+=======
+                                <!-- <input type="button" value="Show Invalid" id="showInvalid" disabled/> -->
+                                <form method="post" action="/image_gallery/">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="redirect" value="true">
+                                    <button type="submit" class="showInvalid">Show invalid</button>
+                                </form>
+>>>>>>> 3e946aa3af84f103017a90082ff6eac6f953566c
                             </div>
                         </div>
 
@@ -137,40 +143,37 @@
 
                     <div id="configInput">
                     <div id="heightConfig">
-                        <span class="head-text">Height(in Pixel)</span>
-                        <br/>
+                        <span class="head-text">Height(in Pixel):</span>
                         <span class="simple-text">Minimum: </span>
 
                         <input type="number" value={{config.min_height}} min="0" max="100000" step="10" id="minHeight"/>
 
-                        <span class="simple-text">Maximum: </span>
+                        <span class="simple-text"> Maximum: </span>
 
 
                         <input type="number" value={{config.max_height}} min="0" max="100000" step="10" id="maxHeight"/>
                     </div>
                     <br/><br/> <br/>
                     <div id="widthConfig">
-                        <span class="head-text">Width(in Pixel)</span>
-                        <br/>
+                        <span class="head-text">Width(in Pixel):</span>
 
                         <span class="simple-text">Minimum: </span>
 
                         <input type="number" value={{config.min_width}} min="0" max="100000" step="10" id="minWidth" />
 
-                        <span class="simple-text">Maximum: </span>
+                        <span class="simple-text"> Maximum: </span>
 
                         <input type="number" value={{config.max_width}} min="0" max="100000" step="10" id="maxWidth" />
                     </div>
                     <br/><br/> <br/>
                     <div id="sizeConfig">
-                        <span class="head-text">Size(in KB)</span>
-                        <br/>
+                        <span class="head-text">Size(in KB):</span>
 
                         <span class="simple-text">Minimum: </span>
 
                         <input type="number" value={{config.min_size}} min="0" max="100000" step="10" id="minSize" />
 
-                        <span class="simple-text">Maximum: </span>
+                        <span class="simple-text"> Maximum: </span>
 
                         <input type="number" value={{config.max_size}} min="0" max="100000" step="10" id="maxSize" />
                     </div>
@@ -179,7 +182,7 @@
                          <br/>
                     <div id="allowedFormat">
                         <span class="head-text">Allowed Formats</span>
-                        <br/> <br/>
+                        <br/>
                         <div class="form-check" id="formatCheck">
                             <input type="checkbox" class="form-check-input" id="jpgchecked"
                                     {% if config.is_jpg %}CHECKED{% endif %}>
@@ -196,7 +199,7 @@
                     </div>
                     <input type="button" value="Save" id="btnSaveConfig"/>
                      </form>
-                     <span id="updatebutton" style="color:rgba(255, 255, 255, 0.5) ;font-weight:bold;  font-family: 'Varela Round';  font-size:xx-large"></span>
+                     <!-- <span id="updatebutton" style="color:rgba(255, 255, 255, 0.5) ;font-weight:bold;  font-family: 'Varela Round';  font-size:xx-large"></span> -->
 
 
 
