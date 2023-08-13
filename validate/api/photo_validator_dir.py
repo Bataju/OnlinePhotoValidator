@@ -20,6 +20,7 @@ import api.file_size_check as file_size_check
 import api.grey_black_and_white_check as grey_black_and_white_check
 import api.head_check as head_check
 import api.symmetry_check as symmetry_check
+import time
 
 
 logging.basicConfig(level=logging.INFO)
@@ -42,8 +43,10 @@ def main(directory):
     # make valid and invalid directories
     validDirectory = directory + "/" + "valid/"
     # invalidDirectory = directory + "/" + "invalid/"
-    invalid_images_static_directory = os.path.join(
-        settings.STATIC_ROOT, 'api', 'static', 'api', 'images', 'invalid')
+
+    seconds = time.time()
+
+    invalid_images_static_directory = os.path.join(settings.STATIC_ROOT, 'api', 'static', 'api', 'images', 'invalid')
 
     resultFile_static_directory = os.path.join(settings.STATIC_ROOT, 'api', 'static', 'api', 'images', 'result.csv')
 
