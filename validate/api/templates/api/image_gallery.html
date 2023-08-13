@@ -8,45 +8,86 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #111;
-            color: #ddd;
+            background-color: #181818; /* Dark background color */
+            color: #fff; /* Light text color */
+            margin: 0;
+            padding: 0;
         }
         .container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            align-items: center;
         }
         .image-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            grid-gap: 120px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
         }
         .image {
-            display: block;
-            max-width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #2a2a2a; /* Darker image background color */
+            padding: 10px;
+            height: 200px; /* Set a fixed height for image containers */
+            margin-bottom: 20px; /* Add margin to the bottom for vertical gap */
         }
+
         .image img {
             max-width: 100%;
-            height: auto;
+            max-height: 100%;
+            object-fit: contain;
         }
         .image-caption {
-            text-align: center;
+            margin: 10px 0;
             font-size: 14px;
-            color: #ddd;
+            color: #555;
+        }
+        
+        input[type="checkbox"]:checked {
+            background-color: #3d3d3d; /* Darker background color when checked */
+        }
+
+        label {
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px; /* Add margin at the top of the button container */
+        }
+
+        .process-button {
+            padding: 10px 20px;
+            background-color: #4CAF50; /* Green button color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h2 align="center">Invalid Images</h2>
-        <div class="image-grid">
-            {% for image in images %}
-                <div class="image">
-                    <img src="{% static 'api/images/invalid/'|add:image %}" alt="{{ image }}">
-                    <p class="image-caption">{{ image|get_image_name }}</p>
-                </div>
-            {% endfor %}
-        </div>
+        <form action="/process_selected_images/" method="post">
+            {% csrf_token %}
+            <div class="image-grid">
+                {% for image in images %}
+                    <div class="image">
+                        <img src="{% static 'api/images/invalid/'|add:image %}" alt="{{ image }}">
+                        <input type="checkbox" id="image{{ forloop.counter }}" name="selected_images" value="{{ image }}">
+                        <label for="image{{ forloop.counter }}">{{ image|get_image_name }}</label>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="button-container">
+                <button class="process-button" type="submit">Process Selected Images</button>
+            </div>
+        </form>
     </div>
 </body>
 </html>
