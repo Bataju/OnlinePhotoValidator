@@ -7,6 +7,7 @@ from django.conf import settings
 from django.shortcuts import redirect
 from django.urls import reverse
 from urllib.parse import urlencode
+from django.http import HttpResponse
 
 from .models import Config
 
@@ -44,24 +45,14 @@ def main(directory):
     invalid_images_static_directory = os.path.join(
         settings.STATIC_ROOT, 'api', 'static', 'api', 'images', 'invalid')
 
-    # invalid_directory = os.path.join(settings.STATIC_ROOT, 'api', 'templates','api', 'invalid')
-    # resultFile = directory + '/result.csv'
     resultFile_static_directory = os.path.join(settings.STATIC_ROOT, 'api', 'static', 'api', 'images', 'result.csv')
 
     if not os.path.exists(validDirectory):
         os.mkdir(validDirectory)
-    # if  not os.path.exists(invalid_directory):
-    #     os.mkdir(invalid_directory)
-
-    # if not os.path.exists(invalidDirectory):
-    #     os.mkdir(invalidDirectory)
 
     # Create the directory if it doesn't exist
     if not os.path.exists(invalid_images_static_directory):
         os.makedirs(invalid_images_static_directory)
-
-    # if os.path.exists(resultFile):
-    #     os.remove(resultFile)
 
     if os.path.exists(resultFile_static_directory):
         os.remove(resultFile_static_directory)
@@ -174,11 +165,7 @@ def main(directory):
     logging.info("Total time taken to validate "
                  + str(len(fileLists)) + " images = " + str(finalTime - initialTime) + " seconds")
 
-    image_gallery_url = 'image_gallery'#view name
-
-    print(image_gallery_url)
-
-    return redirect(image_gallery_url)
+    return HttpResponse("Photo Validation Completed")
 
 
 if __name__ == '__main__':
