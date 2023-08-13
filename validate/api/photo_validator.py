@@ -100,7 +100,7 @@ def main(imgPath):
 
     # Check image for head position and coverage
     if(config.bypass_head_check==False):
-      is_head_valid = head_check.valid_head_size(img)
+      is_head_valid = head_check.valid_head_check(img)
       message = message + "Head check: " + ('Passed' if is_head_valid else 'Failed') + "\n"
       logging.info(message)
     else:
@@ -108,7 +108,7 @@ def main(imgPath):
 
     # Check Eye Covered
     if(config.bypass_eye_check==False):
-      is_eye_covered = head_check.is_eye_covered(img)
+      is_eye_covered = head_check.detect_eyes(img)
       message = message + "Eye check: " + ('Passed' if not is_eye_covered else 'Failed') + "\n"
       logging.info(message)
     else:

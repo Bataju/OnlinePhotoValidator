@@ -1,51 +1,57 @@
+import dlib
 import cv2
 
-def head_percentage(image):
+def valid_head_check(image):
 
-    faces = getFaces(image)
+    faces = detect_faces(image)
 
-    # Return false if there's not exactly one face in the picture
-    if len(faces) != 1:
+    # Print the number of detected faces
+    num_faces = len(faces)
+    print("Number of faces detected:", num_faces)
+
+    # Draw rectangles around the detected faces
+    for rect in faces:
+        x, y, w, h = rect.left(), rect.top(), rect.width(), rect.height()
+        cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        proper_head_percentage = calculate_head_percentage(rect, image)
+
+    print("head percent" ,proper_head_percentage)
+
+    # # Display the image with detected faces
+    # cv2.imshow("Detected Faces", image)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
+
+    if (num_faces == 1) and (10<proper_head_percentage<80):
+        return True
+    else:
         return False
-
-    # Get the only face data
-    face = faces[0]
-    width = face[2]
-    height = face[3]
-
-    # Calculate head percentage based on face percentage, multiplied by 1.25 to assume 75% of head is face
-    head_percentage = (width*height)/(image.shape[0]*image.shape[1]) * 1.25 * 100
-
-    # Image is valid if head percentage is between 30% and 80%
-    if 20 <= head_percentage <= 80:
-        return True
-    return False
-
-def getFaces(image):
-    gray_img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    # Load cascade classifier training file for haarcascade
-    haar_face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
-
-    # Detect multiscale (some images may be closer to camera than others) images
-    return haar_face_cascade.detectMultiScale(gray_img, scaleFactor=1.1, minNeighbors=15);
-
-def is_eye_covered(image):
-    faces = getFaces(image)
-    gray_img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    
+def detect_eyes(image):
+    # Load the pre-trained eye cascade classifier from OpenCV
     eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
-    eyes =[]
-    if len(faces) < 0:
-        return True
-    for (x, y, w, h) in faces:
-        roi_gray = gray_img[y:y + h, x:x + w]
-        eyes = eye_cascade.detectMultiScale(roi_gray)
+    
+    # Convert the image to grayscale for eye detection
+    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    
+    # Detect eyes using the eye cascade classifier
+    eyes = eye_cascade.detectMultiScale(gray_image, scaleFactor=1.1, minNeighbors=5)
+    print("no of eyes", len(eyes))
     return len(eyes) == 0
 
+def calculate_head_percentage(face, image):
+    face_area = face.width() * face.height()
+    image_area = image.shape[0] * image.shape[1]
+    head_percentage = (face_area / image_area) * 100
+    return head_percentage
 
-
-
-def valid_head_size(image):
-    if not head_percentage(image):
-        return False
-    return True
-
+def detect_faces(image):
+    # Load the pre-trained face detection model from dlib
+    face_detector = dlib.get_frontal_face_detector()
+    
+    # Convert the image to grayscale for face detection
+    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    
+    # Detect faces in the grayscale image
+    faces = face_detector(gray_image)
+    return faces

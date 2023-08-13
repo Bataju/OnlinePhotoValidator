@@ -122,11 +122,11 @@ def main(directory):
 
         # Check image for head position and coverage
         if config.bypass_head_check == False:
-            if not head_check.valid_head_size(img):
+            if not head_check.valid_head_check(img):
                 messages.append("Head check failed")
 
         if config.bypass_eye_check == False:
-            if head_check.is_eye_covered(img):
+            if head_check.detect_eyes(img):
                 messages.append("Eye check failed")
 
          # Check for symmetry
