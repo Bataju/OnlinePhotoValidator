@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 from .models import Config
-import logging
+#import logging
 from api.grey_black_and_white_check import is_grey
 
 def check_image_blurness(image):
@@ -13,7 +13,7 @@ def check_if_blur(gray):
     # compute the Laplacian of the image and then return the focus
     # measure, which is simply the variance of the Laplacian
     laplacianVar = cv2.Laplacian(gray, cv2.CV_64F).var()
-    logging.info(" variance = "+ str(laplacianVar))
+    #logging.info(" variance = "+ str(laplacianVar))
     return laplacianVar < config.blurness_threshold
 
 
@@ -31,8 +31,8 @@ def check_if_pixaleted(gray):
 
     if(lines is None):
         lines =[]
-    else:
-        logging.info(" lines = "+ str(len(lines)))
+    # else:
+    #     logging.info(" lines = "+ str(len(lines)))
         
     return len(lines) > pixelated_threshold
 

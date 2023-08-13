@@ -7,7 +7,7 @@ def valid_head_check(image):
 
     # Print the number of detected faces
     num_faces = len(faces)
-    print("Number of faces detected:", num_faces)
+    #print("Number of faces detected:", num_faces)
 
     # Draw rectangles around the detected faces
     for rect in faces:
@@ -15,7 +15,7 @@ def valid_head_check(image):
         cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
         proper_head_percentage = calculate_head_percentage(rect, image)
 
-    print("head percent" ,proper_head_percentage)
+    #print("head percent" ,proper_head_percentage)
 
     # # Display the image with detected faces
     # cv2.imshow("Detected Faces", image)
@@ -36,7 +36,7 @@ def detect_eyes(image):
     
     # Detect eyes using the eye cascade classifier
     eyes = eye_cascade.detectMultiScale(gray_image, scaleFactor=1.1, minNeighbors=5)
-    print("no of eyes", len(eyes))
+    #print("no of eyes", len(eyes))
     return len(eyes) == 0
 
 def calculate_head_percentage(face, image):
