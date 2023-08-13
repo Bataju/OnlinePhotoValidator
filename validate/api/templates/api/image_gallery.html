@@ -17,7 +17,7 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            align-items: center;
+            position: relative; /* Set the container as the reference for absolute positioning */
         }
         .image-grid {
             display: flex;
@@ -25,13 +25,12 @@
             gap: 20px;
         }
         .image {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            position: relative; /* Set position relative for each image container */
             background-color: #2a2a2a; /* Darker image background color */
             padding: 10px;
             height: 200px; /* Set a fixed height for image containers */
-            margin-bottom: 20px; /* Add margin to the bottom for vertical gap */
+            width: 200px;
+            margin-bottom: 40px; /* Add margin to the bottom for vertical gap */
         }
 
         .image img {
@@ -39,19 +38,36 @@
             max-height: 100%;
             object-fit: contain;
         }
-        .image-caption {
-            margin: 10px 0;
+
+        .image-label {
+            position: absolute; /* Position the label absolutely */
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: 0;
+            padding: 5px 10px;
             font-size: 14px;
-            color: #555;
-        }
-        
-        input[type="checkbox"]:checked {
-            background-color: #3d3d3d; /* Darker background color when checked */
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background for readability */
+            color: #fff;
+            text-align: center; /* Center-align the label text */
         }
 
-        label {
-            margin-left: 5px;
-            cursor: pointer;
+        .image-caption {
+            position: absolute; /* Position the image caption absolutely */
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: 0;
+            padding: 5px 10px;
+            font-size: 14px;
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background for readability */
+            color: #fff;
+        }
+
+        input[type="checkbox"] {
+            position: absolute; /* Position the checkbox absolutely */
+            top: 10px;
+            right: 10px;
         }
 
         .button-container {
@@ -80,7 +96,8 @@
                     <div class="image">
                         <img src="{% static 'api/images/invalid/'|add:image %}" alt="{{ image }}">
                         <input type="checkbox" id="image{{ forloop.counter }}" name="selected_images" value="{{ image }}">
-                        <label for="image{{ forloop.counter }}">{{ image|get_image_name }}</label>
+                        <label for="image{{ forloop.counter }}"><p class="image-caption">{{ image|get_image_name }}</p></label>
+                        <!-- <div class="image-label">{{ image|get_image_name }}</div> -->
                     </div>
                 {% endfor %}
             </div>

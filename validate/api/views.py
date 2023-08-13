@@ -3,13 +3,15 @@ import os
 from django.conf import settings
 from django import forms
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 import api.photo_validator as photo_validator
 import api.photo_validator_dir  as photo_validator_dir
 import api.tinkerdirectory as tinker
 from .models import Config
 import urllib.parse
+
+import csv
 
 # Create your views here.
 class NameForm(forms.Form):
@@ -75,8 +77,38 @@ def image_gallery(request):
 
     invalid_images_directory = os.path.join(settings.STATIC_ROOT, 'api', 'static', 'api', 'images', 'invalid')
     
+     # Read the reasons for invalidity from the results.csv file
+    result_file = os.path.join(settings.STATIC_ROOT, 'api', 'static', 'api', 'images', 'result.csv')
+    reasons_for_invalidity = {}
+
+    with open(result_file, 'r') as csv_file:
+        csv_reader = csv.reader(csv_file)
+        for row in csv_reader:
+            image_filename = row[0]  # Assuming the image filename is in the first column
+            reasons = row[1:]  # Assuming the reasons start from the second column
+            reasons_for_invalidity[image_filename] = reasons
+
+    # ... (existing code)
+
+    # Pass the image information and reasons_for_invalidity to the template
+    context = {
+        'images_with_paths': images,
+        'reasons_for_invalidity': reasons_for_invalidity,
+    }
     for filename in os.listdir(invalid_images_directory):
         if filename.endswith('.jpg') or filename.endswith('.jpeg') or filename.endswith('.png'):
             images.append(os.path.join(invalid_images_directory, filename))
 
     return render(request, 'api/image_gallery.html', {'images': images})
+
+def process_selected_images(request):
+    if request.method == 'POST':
+        selected_images = request.POST.getlist('selected_images')
+
+        # Perform any processing or actions with the selected images here
+        
+
+        # Redirect back to the image gallery page after processing
+        return redirect('image_gallery')
+    #handle other http requests
+    return HttpResponse('Method not allowed', status=405)
