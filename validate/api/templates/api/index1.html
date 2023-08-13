@@ -102,9 +102,8 @@
 
                                 </form>
 
-                                <span id="result"></span>
                                 <input type="button" value="Show Invalid" id="showInvalid" disabled/>
-                                <span id="result" style="color:rgba(255, 255, 255, 0.5) ;font-weight:bold;  font-family: 'Varela Round';  font-size:xx-large"></span>
+                                <span id="result"></span>
                                 <form method="post" action="/image_gallery/">
                                     {% csrf_token %}
                                     <input type="hidden" name="redirect" value="true">

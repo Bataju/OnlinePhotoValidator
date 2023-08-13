@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Invalid Image Gallery
         {% load static %}
@@ -8,30 +9,32 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #181818; /* Dark background color */
-            color: #fff; /* Light text color */
+            background-color: #181818;
+            color: #fff;
             margin: 0;
             padding: 0;
         }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            align-items: center;
+            position: relative;
         }
+
         .image-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
         }
+
         .image {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #2a2a2a; /* Darker image background color */
+            position: relative;
+            background-color: #2a2a2a;
             padding: 10px;
-            height: 200px; /* Set a fixed height for image containers */
-            margin-bottom: 20px; /* Add margin to the bottom for vertical gap */
+            height: 200px;
+            width: 200px;
+            margin-bottom: 40px;
         }
 
         .image img {
@@ -39,48 +42,75 @@
             max-height: 100%;
             object-fit: contain;
         }
+
         .image-caption {
-            margin: 10px 0;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: 0;
+            padding: 5px 10px;
             font-size: 14px;
-            color: #555;
-        }
-        
-        input[type="checkbox"]:checked {
-            background-color: #3d3d3d; /* Darker background color when checked */
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
         }
 
-        label {
-            margin-left: 5px;
-            cursor: pointer;
+        input[type="checkbox"] {
+            position: absolute;
+            top: 10px;
+            right: 10px;
         }
 
         .button-container {
             display: flex;
             justify-content: center;
-            margin-top: 20px; /* Add margin at the top of the button container */
+            margin-top: 20px;
         }
 
         .process-button {
             padding: 10px 20px;
-            background-color: #4CAF50; /* Green button color */
+            background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
+
+        .reasons-list {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin-bottom: 40px;
+            padding: 5px 10px;
+            font-size: 14px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            list-style-type: none;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h2 align="center">Invalid Images</h2>
         <form action="/process_selected_images/" method="post">
             {% csrf_token %}
             <div class="image-grid">
-                {% for image in images %}
+                {% for image, reasons in reasons_for_invalidity.items %}
                     <div class="image">
                         <img src="{% static 'api/images/invalid/'|add:image %}" alt="{{ image }}">
+                        <div class="image-content">
+                            <label for="image{{ forloop.counter }}">
+                                <p class="image-caption">{{ image|get_image_name }}</p>
+                            </label> 
+                        </div>
+                        <ul class="reasons-list">
+                            {% for reason in reasons %}
+                                <li>{{ reason }}</li>
+                            {% endfor %}
+                        </ul>
                         <input type="checkbox" id="image{{ forloop.counter }}" name="selected_images" value="{{ image }}">
-                        <label for="image{{ forloop.counter }}">{{ image|get_image_name }}</label>
                     </div>
                 {% endfor %}
             </div>

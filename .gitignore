@@ -1,2 +1,5 @@
 /myvenv
 /photos
+/validate/api/static/api/images
+
+*.pyc
