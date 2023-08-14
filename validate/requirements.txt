@@ -6,3 +6,4 @@ Pillow>=8.0
 pytz==2019.2
 sqlparse==0.3.0
 tk-tools
+dlib
