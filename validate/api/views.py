@@ -162,3 +162,49 @@ def process_selected_images(request):
         return render(request, 'api/image_gallery.html', context)
     
     return HttpResponse('Method not allowed', status=405)
+
+def process_rejected_images(request):
+    if request.method == 'POST':
+        path = request.session.get('path')
+        invalidDirectory = path + "/" + "invalid/"
+    
+        if not os.path.exists(invalidDirectory):
+            os.mkdir(invalidDirectory)
+        
+        invalid_images_directory = os.path.join(settings.STATIC_ROOT, 'api', 'static', 'api', 'images', 'invalid')
+
+        # Get a list of all image files in invalid_images_directory
+        image_files = [filename for filename in os.listdir(invalid_images_directory) if filename.lower().endswith(('.jpg', '.jpeg', '.png'))]
+
+        for image_name in image_files:
+            source_path = os.path.join(invalid_images_directory, image_name)
+            destination_path = os.path.join(invalidDirectory, image_name)
+
+            try:
+                shutil.move(source_path, destination_path)
+                print(f"Moved from {source_path} to {destination_path}")
+            except Exception as e:
+                print(f"Error moving {source_path} to {destination_path}: {e}")
+
+        newcsvFile = path + "/" + "results.csv"
+        oldcsvFile = os.path.join(settings.STATIC_ROOT, 'api', 'static', 'api', 'images', 'result.csv')
+        rows = []
+
+        with open(oldcsvFile, 'r') as csv_file:
+            csv_reader = csv.reader(csv_file)
+            for row in csv_reader:
+                rows.append(row)  
+
+        # Write the updated rows (excluding the removed row) back to the CSV file
+        with open(newcsvFile, 'w', newline='') as csv_file:
+            csv_writer = csv.writer(csv_file)
+            csv_writer.writerows(rows)
+
+        #emptying the old csv
+        rows = []
+        with open(oldcsvFile, 'w', newline='') as csv_file:
+            csv_writer = csv.writer(csv_file)
+            csv_writer.writerows(rows) 
+
+    return redirect('photoValidator')
+      

@@ -17,7 +17,7 @@ def valid_head_check(image):
 
     #print("head percent" ,proper_head_percentage)
 
-    # # Display the image with detected faces
+    # #pyt Display the image with detected faces
     # cv2.imshow("Detected Faces", image)
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()

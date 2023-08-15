@@ -6,6 +6,7 @@
         {% load static %}
         {% load custom_filters %}
     </title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -114,10 +115,69 @@
                     </div>
                 {% endfor %}
             </div>
-            <div class="button-container">
+            <div id="movetovalidButton" class="button-container">
                 <button class="process-button" type="submit">Move to valid</button>
             </div>
         </form>
+        <form action="/process_rejected_images/" method="post">
+            {% csrf_token %}
+            <div class="button-container">
+                <button id="finishButton" class="process-button" type="submit">Finish process</button>
+            </div>
+        </form>
     </div>
+    <!-- <script src="{% static 'api/js/logic.js' %}"></script> -->
 </body>
 </html>
+<!-- 
+<script>
+    $(document).ready(function() {
+
+        $("#movetovalidButton").click(function (event) {
+            // Stop submit the form, we will post it manually.
+            event.preventDefault();
+
+             // Get the CSRF token from the page
+            var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
+
+            alert('hi');
+    
+            $.ajax({
+                type: "POST",
+                url: "/process_selected_images/",
+                headers: {
+                    "X-CSRFToken": csrfToken  // Include the CSRF token in the request headers
+                },
+                success: function (data) {
+                    // Handle success response here
+                },
+                error: function (e) {
+                    // Handle error here
+                }
+            });
+        });
+
+        $("#finishButton").click(function (event) {
+            // Stop submit the form, we will post it manually.
+            event.preventDefault();
+             // Get the CSRF token from the page
+            var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
+
+            alert('hi');
+    
+            $.ajax({
+                type: "POST",
+                url: "/process_rejected_images/",
+                headers: {
+                    "X-CSRFToken": csrfToken  // Include the CSRF token in the request headers
+                },
+                success: function (data) {
+                    // Handle success response here
+                },
+                error: function (e) {
+                    // Handle error here
+                }
+            });
+        });
+    });
+    </script> -->
