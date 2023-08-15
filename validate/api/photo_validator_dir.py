@@ -168,7 +168,7 @@ def main(directory):
     logging.info("Total time taken to validate "
                  + str(len(fileLists)) + " images = " + str(finalTime - initialTime) + " seconds")
 
-    return redirect('http://127.0.0.1:8000/image_gallery/')
+    return HttpResponse('Validation completed')
 
 
 if __name__ == '__main__':
