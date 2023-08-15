@@ -30,10 +30,25 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        .process-button:hover {
+            background-color: rgb(37, 147, 183);
+        }
+        .process-button:disabled{
+            background-color: gray;
+        }
         .button-container {
             display: flex;
             justify-content: center;
             margin-top: 20px;
+        }
+        #btnSubmit:disabled{
+            background-color: gray;
+        }
+        #btnSubmit:hover{
+            background-color: rgb(37, 147, 183);
+        }
+        #btnSubmit{
+            background-color: mediumseagreen;
         }
     </style>
     <script>
@@ -126,7 +141,6 @@
                                 <div class="button-container">
                                     <button id="adminButton" class="process-button">Admin</button>
                                 </div>
-
                             </div>
                         </div>
 

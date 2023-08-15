@@ -2,9 +2,7 @@ var filePath = "";
 var type = ""
 
 
-$(document).ready(function () {
-
-    // $('#jpgchecked').prop('checked', true);
+$document.addEventListener("DOMContentLoaded", function() {
 
     $('#categoryDropDown').change(function () {
         if ($(this).find("option:selected").val() === 'folder') {
@@ -22,6 +20,7 @@ $(document).ready(function () {
         event.preventDefault();
 
         $("#uploadFolder").prop("disabled", true);
+       
         $("#result").text("");
         $("#selectedFolderText").text("");
 
@@ -93,8 +92,9 @@ $(document).ready(function () {
         //data.append("CustomField", "This is some extra data, testing");
 
         // disabled the submit button
-
         $("#btnSubmit").prop("disabled", true);
+        $("#adminButton").prop("disabled", true);
+        $("#showInvalid").prop("disabled", true);
 
         $.ajax({
             type: "POST",
@@ -113,6 +113,8 @@ $(document).ready(function () {
                 $("#result").html(data).wrap('<pre />');;
                 console.log("SUCCESS : ", data);
                 $("#btnSubmit").prop("disabled", false);
+                $("#adminButton").prop("disabled", false);
+                $("#showInvalid").prop("disabled", false);
 
             },
             error: function (e) {
@@ -149,9 +151,6 @@ $(document).ready(function () {
         data.append("maxWidth", $("#maxWidth").val());
         data.append("minSize", $("#minSize").val());
         data.append("maxSize", $("#maxSize").val());
-        // data.append("jpgchecked", $("#jpgchecked").is(":checked"));
-        // data.append("pngchecked", $("#pngchecked").is(":checked"));
-        // data.append("jpegchecked", $("#jpegchecked").is(":checked"));
         data.append("jpgchecked", $("#jpgchecked").is(":checked") ? 'True' : 'False');
         data.append("pngchecked", $("#pngchecked").is(":checked") ? 'True' : 'False');
         data.append("jpegchecked", $("#jpegchecked").is(":checked") ? 'True' : 'False');
