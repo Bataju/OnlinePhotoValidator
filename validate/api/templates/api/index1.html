@@ -21,6 +21,21 @@
     <link href="{% static 'api/css/grayscale.css' %}" rel="stylesheet">
 
     <script src="{% static 'api/js/jquer.js' %}"></script>
+    <style>
+        .process-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+    </style>
     <script>
         $(document).ready(function() {
             // Apply the adminButton class styling
@@ -35,6 +50,7 @@
                 'border-radius': '5px',
                 'cursor': 'pointer'
             });
+
             $('.redirectButton').css({
                 'position' : 'absolute',
                 'right' : '0',
@@ -46,13 +62,21 @@
                 'border-radius': '5px',
                 'cursor': 'pointer'
             });
+
+            $("#showInvalid").click(function (event) {
+            event.preventDefault();
+            window.location.href = "{% url 'image_gallery' %}";
+            });
+
+            $("#adminButton").click(function (event) {
+                event.preventDefault();
+                window.location.href = "{% url 'admin:index' %}";
+            });
+
         });
 
     </script>
 </head>
-
-<!-- Header -->
-
 
 <body id="page-top" class="about-section text-center">
 
@@ -79,11 +103,6 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-8 mx-auto">
-
-                                <form method="post" action="{% url 'admin:index' %}" class="admin-form">
-                                    {% csrf_token %}
-                                    <button class="adminButton" type="submit">Admin</button>
-                                </form>
                                 <!-- <hr class="full-width-hr"> -->
 
                                 <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
@@ -100,16 +119,23 @@
                                     <br/>
                                     <br>
                                     <span id="selectedFolderText"></span>
-                                    <input type="button" value="Submit" id="btnSubmit" disabled/>
+                                    <input type="button" value="Submit" id="btnSubmit" class="process-button" disabled/>
 
                                 </form>
 
                                 <span id="result" style="color:rgba(255, 255, 255, 0.5) ;font-weight:bold;  font-family: 'Varela Round';  font-size:xx-large"></span>
-                                <form method="post" action="/image_gallery/">
+                                <!-- <form method="post" action="/image_gallery/">
                                     {% csrf_token %}
                                     <input type="hidden" name="redirect" value="true">
                                     <button type="submit" class="redirectButton">Show invalid</button>
-                                </form>
+                                </form> -->
+                                <div class="button-container">
+                                    <button id="showInvalid" class="process-button">Show invalid images</button>
+                                </div>
+
+                                <div class="button-container">
+                                    <button id="adminButton" class="process-button">Admin</button>
+                                </div>
 
                             </div>
                         </div>
