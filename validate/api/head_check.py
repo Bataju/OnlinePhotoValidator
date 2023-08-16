@@ -23,9 +23,11 @@ def valid_head_check(image):
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
     
-    #print("head percent" ,proper_head_percentage)
-    if (num_faces == 1):
-        return num_faces, proper_head_percentage
+    if (num_faces == 1 and (10<proper_head_percentage<80)):
+        print("head percent" ,proper_head_percentage)
+        return True, proper_head_percentage
+    elif(num_faces == 1 and (proper_head_percentage<10 or proper_head_percentage>80)):
+        return False, proper_head_percentage
     elif(num_faces == 0):
         return False, 101
     else:
