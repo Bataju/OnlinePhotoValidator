@@ -100,8 +100,14 @@ def main(imgPath):
 
     # Check image for head position and coverage
     if(config.bypass_head_check==False):
-      is_head_valid = head_check.valid_head_check(img)
-      message = message + "Head check: " + ('Passed' if is_head_valid else 'Failed') + "\n"
+      is_head_valid ,head_percent= head_check.valid_head_check(img)
+      if(head_percent<10):
+        message = message + "Head check: " + ('Head Ratio Small' if is_head_valid else 'multiple heads detected')
+      elif(head_percent>80):
+        message = message + "Head check: " + ('Head Ratio Large' if is_head_valid else 'multiple heads detected')
+      elif not is_head_valid:
+        message = message + "Head check: multiple heads detected"
+              
       logging.info(message)
     else:
       message = message + "Bypassed head check\n"

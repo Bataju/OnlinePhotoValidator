@@ -126,8 +126,16 @@ def main(directory):
 
         # Check image for head position and coverage
         if config.bypass_head_check == False:
-            if not head_check.valid_head_check(img):
-                messages.append("Head check failed")
+            is_head_valid ,head_percent= head_check.valid_head_check(img)
+            if not is_head_valid:
+                if(head_percent<10):
+                    messages.append('Head Ratio Small')
+                elif(head_percent>80):
+                    messages.append('Head Ratio Large')
+                else:
+                    messages.append('multiple heads detected')
+                
+                
 
         if config.bypass_eye_check == False:
             if head_check.detect_eyes(img):

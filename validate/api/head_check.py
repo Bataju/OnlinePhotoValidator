@@ -22,10 +22,10 @@ def valid_head_check(image):
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
 
-    if (num_faces == 1) and (10<proper_head_percentage<80):
-        return True
+    if (num_faces == 1):
+        return True, proper_head_percentage
     else:
-        return False
+        return False, proper_head_percentage
     
 def detect_eyes(image):
     # Load the pre-trained eye cascade classifier from OpenCV
