@@ -130,8 +130,10 @@ def main(directory):
             if not is_head_valid:
                 if(head_percent<10):
                     messages.append('Head Ratio Small')
-                elif(head_percent>80):
+                elif(100>head_percent>80):
                     messages.append('Head Ratio Large')
+                elif(head_percent == 101):
+                    messages.append('couldnot detect head')
                 else:
                     messages.append('multiple heads detected')
                 

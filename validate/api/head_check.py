@@ -7,25 +7,29 @@ def valid_head_check(image):
 
     # Print the number of detected faces
     num_faces = len(faces)
-    #print("Number of faces detected:", num_faces)
+    print("Number of faces detected:", num_faces)
 
     # Draw rectangles around the detected faces
-    for rect in faces:
-        x, y, w, h = rect.left(), rect.top(), rect.width(), rect.height()
-        cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
-        proper_head_percentage = calculate_head_percentage(rect, image)
+    if not num_faces == 0:
+        for rect in faces:
+            x, y, w, h = rect.left(), rect.top(), rect.width(), rect.height()
+            cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            proper_head_percentage = calculate_head_percentage(rect, image)
 
-    #print("head percent" ,proper_head_percentage)
+ 
 
     # #pyt Display the image with detected faces
     # cv2.imshow("Detected Faces", image)
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
-
+    
+    #print("head percent" ,proper_head_percentage)
     if (num_faces == 1):
-        return True, proper_head_percentage
+        return num_faces, proper_head_percentage
+    elif(num_faces == 0):
+        return False, 101
     else:
-        return False, proper_head_percentage
+        return False, 102
     
 def detect_eyes(image):
     # Load the pre-trained eye cascade classifier from OpenCV
