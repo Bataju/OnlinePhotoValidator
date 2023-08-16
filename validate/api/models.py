@@ -28,5 +28,3 @@ class Config(models.Model):
     bypass_head_check = models.BooleanField(default=False)
     bypass_eye_check = models.BooleanField(default=False)
     bypass_corrupted_check = models.BooleanField(default=False)
-
-
