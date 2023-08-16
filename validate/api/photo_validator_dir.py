@@ -12,6 +12,7 @@ from django.http import HttpResponse
 from .models import Config
 
 import cv2
+import csv
 
 import api.background_check as background_check
 import api.blur_check as blur_check
@@ -57,8 +58,11 @@ def main(directory):
     if not os.path.exists(invalid_images_static_directory):
         os.makedirs(invalid_images_static_directory)
 
-    if os.path.exists(resultFile_static_directory):
-        os.remove(resultFile_static_directory)
+    if not os.path.exists(resultFile_static_directory):
+        rows = []
+        with open(resultFile_static_directory, 'w', newline='') as csv_file:
+            csv_writer = csv.writer(csv_file)
+            csv_writer.writerows(rows)  #empty csv
 
     error_message = {}
     fileLists = sorted(os.listdir(directory))
@@ -156,7 +160,7 @@ def main(directory):
         print("There are no invalid images")
 
     logging.info("Writing result to result.csv... ")
-    f = open(resultFile_static_directory, 'w')
+    f = open(resultFile_static_directory, 'a')
     f.write(csv_string)  # Give your csv text here.
     # Python will convert \n to os.linesep
     f.close()

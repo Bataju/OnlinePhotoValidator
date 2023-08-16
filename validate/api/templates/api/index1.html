@@ -41,15 +41,20 @@
             justify-content: center;
             margin-top: 20px;
         }
-        #btnSubmit:disabled{
-            background-color: gray;
-        }
-        #btnSubmit:hover{
-            background-color: rgb(37, 147, 183);
-        }
+
         #btnSubmit{
             background-color: mediumseagreen;
         }
+
+        #btnSubmit:hover{
+            background-color: rgb(37, 147, 183);
+        }
+
+        #btnSubmit:disabled{
+            background-color: gray;
+        }
+      
+
     </style>
     <script>
         $(document).ready(function() {
@@ -225,14 +230,11 @@
             </div>
         </div>
 
-
         <!-- Bootstrap core JavaScript -->
         <script src="{% static 'api/vendor/jquery/jquery.min.js' %}"></script>
         <script src="{% static 'api/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-
         <!-- Plugin JavaScript -->
         <script src="{% static 'api/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
-
         <!-- Custom scripts for this template -->
         <script src="{% static 'api/js/grayscale.min.js' %}"></script>
 
