@@ -6,3 +6,6 @@ Project screenshots
 
   <img src = "https://github.com/Bataju/PhotoValidationSystem/blob/main/files/photoValidator.png" width = "500" height = "500">
  <img src = "https://github.com/Bataju/PhotoValidationSystem/blob/main/files/configurations.png" width = "500" height = "500">
+   <img src = "https://github.com/Bataju/PhotoValidationSystem/blob/main/files/invalid.png" width = "500" height = "500">
+ <img src = "https://github.com/Bataju/PhotoValidationSystem/blob/main/files/bypass.png" width = "500" height = "500">
+
