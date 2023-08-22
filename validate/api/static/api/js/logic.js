@@ -71,6 +71,8 @@ $(document).ready(function () {
         $("#btnSubmit").prop("disabled", true);
         $("#adminButton").prop("disabled", true);
         $("#showInvalid").prop("disabled", true);
+        $("#uploadFolder").prop("disabled", true);
+        $("#showInvalid").prop("disabled", false);
         $.ajax({
             type: "POST",
             enctype: 'multipart/form-data',
@@ -88,6 +90,7 @@ $(document).ready(function () {
                 $("#btnSubmit").prop("disabled", false);
                 $("#showInvalid").prop("disabled", false);
                 $("#adminButton").prop("disabled", false);
+                $("#uploadFolder").prop("disabled", false);
             },
             error: function (e) {
                 // {#$("#result").text(e.responseText);#}
