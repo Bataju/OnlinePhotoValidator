@@ -14,10 +14,10 @@ $(document).ready(function () {
     });
 
     $("#uploadZip").click(function (event) {
+        $("#result").html("Processing..").wrap('<pre />');
         //stop submit the form, we will post it manually.
         event.preventDefault();
         $("#uploadZip").prop("disabled", true);
-        $("#result").text("");
         $("#selectedFolderText").text("");
         $("#showInvalid").prop("disabled", true);
 
@@ -51,6 +51,8 @@ $(document).ready(function () {
                 filePath = data;
                 $("#uploadZip").prop("disabled", false);
                 if (data) {
+                    $("#result").text("");
+                    $("#result").html("Validation completed").wrap('<pre />');
                     $("#btnSubmit").prop("disabled", false);
                     $("#showInvalid").prop("disabled", false);
                     $("#selectedFolderText").html(data + "/").wrap('<pre />');
