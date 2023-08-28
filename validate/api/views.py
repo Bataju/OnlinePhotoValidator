@@ -245,3 +245,18 @@ def display_csv(request):
             csv_data.append(row)
 
     return render(request, 'api/display_csv.html', {'csv_data': csv_data})
+
+def download_and_delete_csv(request):
+    path = request.session.get('path') + "/" + "results.csv"
+    folder_to_delete = os.path.join(settings.MEDIA_ROOT)
+
+    with open(path, 'rb') as csv_file:
+        response = HttpResponse(csv_file.read(), content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="results.csv"'
+   
+    try:
+        shutil.rmtree(folder_to_delete)
+    except Exception as e:
+        print(f"Error deleting folder: {e}")
+
+    return response
