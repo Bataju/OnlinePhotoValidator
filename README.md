@@ -5,16 +5,16 @@ This analysis includes assessments of dimensions, size, file format, background 
 
 ## Instructions
 <hr>
-1.  Compress the folder containing images into .zip file
-2.  Upload the .zip file in the application
-3.  Select Start Validation Button
-4.  After the validation is complete, Click the showinvalid button 
-5.  tick the images that seem valid but was labled invalid by the application
-6.  move the selected image to the valid section
-7.  Click Finish process/ show results button 
-8.  The name of invalid images are provided with the reason of invalidity
-9.  Download the csv file
-10. Navigate to Home and validate new image folder
+1.  Compress the folder containing images into .zip file<br>
+2.  Upload the .zip file in the application<br>
+3.  Select Start Validation Button<br>
+4.  After the validation is complete, Click the showinvalid button<br>
+5.  tick the images that seem valid but was labled invalid by the application<br>
+6.  move the selected image to the valid section<br>
+7.  Click Finish process/ show results button <br>
+8.  The name of invalid images are provided with the reason of invalidity<br>
+9.  Download the csv file<br>
+10. Navigate to Home and validate new image folder<br>
 
 ## Project screenshots:
 <hr>

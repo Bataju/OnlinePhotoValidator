@@ -7,7 +7,7 @@ def valid_head_check(image):
 
     # Print the number of detected faces
     num_faces = len(faces)
-    print("Number of faces detected:", num_faces)
+    #print("Number of faces detected:", num_faces)
 
     # Draw rectangles around the detected faces
     if not num_faces == 0:
