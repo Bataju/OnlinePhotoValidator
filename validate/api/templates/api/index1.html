@@ -22,6 +22,17 @@
 
     <script src="{% static 'api/js/jquer.js' %}"></script>
     <style>
+        label {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .file-upload-wrapper input[type="file"] {
+        display: none;
+        }
         .process-button {
             padding: 10px 20px;
             background-color: #4CAF50;
@@ -54,9 +65,25 @@
             background-color: gray;
         }
       
-
+        .file-name-label {
+        display: inline-block;
+        margin-left: 10px;
+        color: aliceblue;
+        }
     </style>
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+        const fileInput = document.getElementById("id_folder");
+        const fileNameLabel = document.querySelector(".file-name-label");
+
+        fileInput.addEventListener("change", function() {
+            if (fileInput.files.length > 0) {
+                fileNameLabel.textContent = fileInput.files[0].name;
+            } else {
+                fileNameLabel.textContent = "No files chosen";
+            }
+        });
+        });
         $(document).ready(function() {
             // Apply the adminButton class styling
             $('.adminButton').css({
@@ -132,7 +159,14 @@
                                     <input type="submit" name="file" value="Choose a zipfile" id="uploadZip"> -->
                                     <form method="post" enctype="multipart/form-data" id = "fileUploadForm">
                                         {% csrf_token %}
-                                        {{ form.as_p }}
+                                        <div class="file-upload-wrapper">
+                                            <label for="id_folder">Upload a Zip File</label>
+                                            {{ form.folder }}
+                                            <br>
+                                            <span class="file-name-label">No files chosen</span>
+                                        </div>
+                                        <br>
+                                        <br>
                                         <button type="submit" id = "uploadZip" class="process-button">Upload Zip</button>
                                     </form>
                                     <!-- <br/>

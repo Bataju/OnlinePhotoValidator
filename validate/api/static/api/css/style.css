@@ -54,7 +54,15 @@
   cursor: pointer;
   transition: background 0.3s;
 }
-
+label {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  margin-right: 10px;
+}
 #uploadFolder,
 #btnSubmit,
 #btnSaveConfig {
