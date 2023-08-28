@@ -20,6 +20,7 @@ $(document).ready(function () {
         $("#result").text("");
         $("#selectedFolderText").text("");
         $("#showInvalid").prop("disabled", true);
+        $("#adminButton").prop("disabled", true);
 
         var form = $('#fileUploadForm')[0];
         var data = new FormData(form);
@@ -53,6 +54,7 @@ $(document).ready(function () {
                 if (data) {
                     $("#btnSubmit").prop("disabled", false);
                     $("#showInvalid").prop("disabled", false);
+                    $("#adminButton").prop("disabled", false);
                     $("#selectedFolderText").html(data + "/").wrap('<pre />');
                 }
             },

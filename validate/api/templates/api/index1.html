@@ -79,6 +79,7 @@
         fileInput.addEventListener("change", function() {
             if (fileInput.files.length > 0) {
                 fileNameLabel.textContent = fileInput.files[0].name;
+                $("#uploadZip").prop("disabled", false);
             } else {
                 fileNameLabel.textContent = "No files chosen";
             }
@@ -165,14 +166,14 @@
                                     <form method="post" enctype="multipart/form-data" id = "fileUploadForm">
                                         {% csrf_token %}
                                         <div class="file-upload-wrapper">
-                                            <label for="id_folder">Upload a Zip File</label>
+                                            <label for="id_folder">Choose a Zip File</label>
                                             {{ form.folder }}
                                             <br>
                                             <span class="file-name-label">No files chosen</span>
                                         </div>
                                         <br>
                                         <br>
-                                        <button type="submit" id = "uploadZip" class="process-button">Upload Zip</button>
+                                        <button type="submit" id = "uploadZip" class="process-button" disabled>Start Validation</button>
                                     </form>
                                     <!-- <br/>
                                     <br>
