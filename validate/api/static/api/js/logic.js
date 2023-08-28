@@ -20,6 +20,7 @@ $(document).ready(function () {
         $("#result").text("");
         $("#selectedFolderText").text("");
         $("#showInvalid").prop("disabled", true);
+
         var form = $('#fileUploadForm')[0];
         var data = new FormData(form);
 
@@ -78,7 +79,7 @@ $(document).ready(function () {
         $("#adminButton").prop("disabled", true);
         $("#showInvalid").prop("disabled", true);
         $("#uploadFolder").prop("disabled", true);
-        $("#showInvalid").prop("disabled", false);
+        $("#showCSV").prop("disabled", true);
         $.ajax({
             type: "post",
             enctype: 'multipart/form-data',

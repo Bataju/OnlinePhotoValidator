@@ -2,11 +2,21 @@
 <html>
 
 <head>
-    <title>Invalid Image Gallery
+    <title>Display Results
         {% load static %}
         {% load custom_filters %}
     </title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js">
+
+    </script>
+    <script>
+    $(document).ready(function() {
+        $("#Home").click(function (event) {
+            event.preventDefault();
+            window.location.href = "{% url 'photoValidator' %}";
+        });
+    });
+    </script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -97,45 +107,20 @@
 </head>
 
 <body>
-    <div class="container">
-        <h2 align="center">Invalid Images</h2>
-        <form action="/process_selected_images/" method="post">
-            {% csrf_token %}
-            <div class="image-grid">
-                {% for image, reasons in reasons_for_invalidity.items %}
-                    <div class="image">
-                        <img src="{% static 'api/images/invalid/'|add:image %}" alt="{{ image }}">
-                        <div class="image-content">
-                            <label for="image{{ forloop.counter }}">
-                                <p class="image-caption">{{ image|get_image_name }}</p>
-                            </label> 
-                        </div>
-                        <ul class="reasons-list">
-                            {% for reason in reasons %}
-                                <li>{{ reason }}</li>
-                            {% endfor %}
-                        </ul>
-                        <input type="checkbox" id="image{{ forloop.counter }}" name="selected_images" value="{{ image }}">
-                    </div>
-                {% endfor %}
-            </div>
-            <div id="movetovalidButton" class="button-container">
-                <button class="process-button" type="submit">Move to valid</button>
-            </div>
-        </form>
-        <form action="/process_rejected_images/" method="post">
-            {% csrf_token %}
-            <div class="button-container">
-                <button id="finishButton" class="process-button" type="submit">Finished process/ Display CSV</button>
-            </div>
-        </form>
-        <form action="/photoValidator/" method="post">
-            {% csrf_token %}
-            <div class="button-container">
-                <button id="homeButton" class="process-button" type="submit">Return</button>
-            </div>
-        </form>
+    <h1>CSV Data Display</h1>
+    <table>
+        <tbody>
+            {% for row in csv_data %}
+                <tr>
+                    {% for item in row %}
+                        <td>{{ item }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="button-container">
+        <button id="Home" class="process-button">Home</button>
     </div>
-    <!-- <script src="{% static 'api/js/logic.js' %}"></script> -->
 </body>
 </html>

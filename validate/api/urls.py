@@ -11,6 +11,7 @@ def redirect_root(request):
 
 urlpatterns = [
     path('photoValidator/', views.process_image, name='photoValidator'),
+    path('displayCsv/',views.display_csv, name ='displayCsv'),
     #path('upload/', views.process_image, name='upload'),
     #path('dialogueBox/', views.dialogueBox, name='dialogueBox'),
     path('saveConfig/', views.save_config, name='save_config'),

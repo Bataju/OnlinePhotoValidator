@@ -232,5 +232,16 @@ def process_rejected_images(request):
             csv_writer = csv.writer(csv_file)
             csv_writer.writerows(rows) 
 
-    return redirect('photoValidator')
-      
+    return redirect('displayCsv')
+    
+def display_csv(request):
+    csv_data = []
+    path = request.session.get('path')
+    newcsvFile = path + "/" + "results.csv"
+
+    with open(newcsvFile, 'r') as csvfile:
+        reader = csv.reader(csvfile)
+        for row in reader:
+            csv_data.append(row)
+
+    return render(request, 'api/display_csv.html', {'csv_data': csv_data})

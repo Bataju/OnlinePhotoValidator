@@ -119,6 +119,11 @@
                 event.preventDefault();
                 window.location.href = "{% url 'admin:index' %}";
             });
+
+            // $("#showCSV").click(function (event) {
+            //     event.preventDefault();
+            //     window.location.href = "{% url 'displayCsv' %}";
+            // });
         });
     </script>
 </head>
@@ -181,7 +186,9 @@
                                 <div class="button-container">
                                     <button id="showInvalid" class="process-button" disabled>Show invalid images</button>
                                 </div>
-
+                                <!-- <div class="button-container">
+                                    <button id="showCSV" class="process-button" disabled>Display Results in CSV</button>
+                                </div> -->
                                 <div class="button-container">
                                     <button id="adminButton" class="process-button">Admin</button>
                                 </div>
