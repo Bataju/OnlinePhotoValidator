@@ -28,3 +28,10 @@ class Config(models.Model):
     bypass_head_check = models.BooleanField(default=False)
     bypass_eye_check = models.BooleanField(default=False)
     bypass_corrupted_check = models.BooleanField(default=False)
+
+class PhotoFolder(models.Model):
+    folder = models.FileField(upload_to = 'photo_folder/')
+    uploaded_at = models.DateTimeField(auto_now_add= True)
+
+    def __str__(self):
+        return self.folder.name

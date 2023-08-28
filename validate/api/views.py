@@ -7,40 +7,66 @@ from django.shortcuts import render, redirect
 
 import api.photo_validator as photo_validator
 import api.photo_validator_dir  as photo_validator_dir
-import api.tinkerdirectory as tinker
-from .models import Config
-import urllib.parse
+from api.forms import PhotoFolderUploadForm
+#import api.tinkerdirectory as tinker
+from .models import Config, PhotoFolder
+#import urllib.parse
 import shutil
-
+import zipfile
 import csv
 
 # Create your views here.
 class NameForm(forms.Form):
     your_name = forms.CharField(label='Your name', max_length=100)
 
-def startPage(request):
-    context = {}
-    config = Config.objects.all()[0]
-    return render(request, 'api/index1.html', {'config': config})
+# def startPage(request):
+#     context = {}
+#     config = Config.objects.all()[0]
+#     return render(request, 'api/index1.html', {'config': config})
+
+#def dialogueBox(request):
+   
 
 def process_image(request):
+    if request.method == 'POST':
+        form = PhotoFolderUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            #get the uploded zip file and extract it
+            folder = form.cleaned_data['folder']
+            photo_folder = PhotoFolder(folder=folder)
+            photo_folder.save()
+            folder_path = os.path.join(settings.MEDIA_ROOT, 'photo_folder',folder.name)
+            unzip_directory = os.path.join(settings.MEDIA_ROOT, 'photos')
 
-    path = request.POST['path']
-    type = request.POST['type']
+            with zipfile.ZipFile(folder_path, 'r') as zip_ref:
+                zip_ref.extractall(unzip_directory)
 
-    logging.info("Validating images from path: " + path)
-    if type == 'folder':
-      request.session['path'] = path
-      photo_validator_dir.main(path)
-      return HttpResponse("Validation Completed")
+            path = os.path.join(settings.MEDIA_ROOT, 'photos', os.path.splitext(folder.name)[0])
+            #processing the image
+            logging.info("Validating images from path: " + path)
+            request.session['path'] = path
+            photo_validator_dir.main(path)
+            #return render(request, 'api/image_gallery.html')
+        else:
+            print(form.errors)
+            print(request.FILES)
     else:
-      message = photo_validator.main(path)
-      return HttpResponse("Results:" + "\n" + message)
+        form = PhotoFolderUploadForm()
+    return render(request, 'api/index1.html', {'form': form})
 
-def dialogueBox(request):
-    folderpath = tinker.opendialogForDirectory(request.POST['type'])
+# def process_image(request):
 
-    return HttpResponse(folderpath)
+    # path = request.POST['path']
+    # type = request.POST['type']
+
+    # logging.info("Validating images from path: " + path)
+    # if type == 'folder':
+    #   request.session['path'] = path
+    #   photo_validator_dir.main(path)
+    #   return HttpResponse("Validation Completed")
+    # else:
+    #   message = photo_validator.main(path)
+    #   return HttpResponse("Results:" + "\n" + message)
 
 def save_config(request):
 

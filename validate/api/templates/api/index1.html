@@ -121,21 +121,26 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-8 mx-auto">
-                                <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
+                                <!-- <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
                                     {% csrf_token %}
                                     <br>
                                     <select class="form-control" id="categoryDropDown" name="">
-                                        <option value="folder">Validate whole folder</option>
+                                        <option value="folder">validate the folder </option>
                                         <option value="file">Validate an image</option>
                                     </select>
                                 
-                                    <input type="button" name="file" value="Choose Folder" id="uploadFolder">
-                                    <br/>
+                                    <input type="submit" name="file" value="Choose a zipfile" id="uploadZip"> -->
+                                    <form method="post" enctype="multipart/form-data" id = "fileUploadForm">
+                                        {% csrf_token %}
+                                        {{ form.as_p }}
+                                        <button type="submit" id = "uploadZip" class="process-button">Upload Zip</button>
+                                    </form>
+                                    <!-- <br/>
                                     <br>
                                     <span id="selectedFolderText"></span>
                                     <input type="button" value="Submit" id="btnSubmit" class="process-button" disabled/>
 
-                                </form>
+                                </form> -->
 
                                 <span id="result" style="color:rgba(255, 255, 255, 0.5) ;font-weight:bold;  font-family: 'Varela Round';  font-size:xx-large"></span>
                                 

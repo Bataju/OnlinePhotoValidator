@@ -5,37 +5,42 @@ $(document).ready(function () {
     // $('#jpgchecked').prop('checked', true);
     $('#categoryDropDown').change(function () {
         if ($(this).find("option:selected").val() === 'folder') {
-            $('#uploadFolder').prop("value", "Choose Folder")
+            $('#uploadZip').prop("value", "Choose a zipfile")
         } else {
-            $('#uploadFolder').prop("value", "Choose File ")
+            $('#uploadZip').prop("value", "Choose File ")
         }
         $("#result").text("");
         $("#selectedFolderText").text("");
     });
-    $("#uploadFolder").click(function (event) {
+
+    $("#uploadZip").click(function (event) {
         //stop submit the form, we will post it manually.
         event.preventDefault();
-        $("#uploadFolder").prop("disabled", true);
+        $("#uploadZip").prop("disabled", true);
         $("#result").text("");
         $("#selectedFolderText").text("");
-        // Get form
+        $("#showInvalid").prop("disabled", true);
         var form = $('#fileUploadForm')[0];
-        // Create an FormData object
         var data = new FormData(form);
-        data.append("info", "");
-        var selectedValue = $('#categoryDropDown').find("option:selected").val();
-        if (selectedValue === "folder") {
-            data.append("type", "folder");
-            type = "folder"
-        }
-        else {
-            data.append("type", "file");
-            type = "file"
-        }
+
+        // Get form
+        //var form = $('#fileUploadForm')[0];
+        // Create an FormData object
+        //var data = new FormData(form);
+        //data.append("info", "");
+        // var selectedValue = $('#categoryDropDown').find("option:selected").val();
+        // if (selectedValue === "folder") {
+        //     data.append("type", "folder");
+        //     type = "folder"
+        // }
+        // else {
+        //     data.append("type", "file");
+        //     type = "file"
+        // }
         $.ajax({
             type: "POST",
             enctype: 'multipart/form-data',
-            url: "/dialogueBox/",
+            url: "/photoValidator/",
             data: data,
             processData: false,
             contentType: false,
@@ -43,14 +48,15 @@ $(document).ready(function () {
             timeout: 600000,
             success: function (data) {
                 filePath = data;
-                $("#uploadFolder").prop("disabled", false);
+                $("#uploadZip").prop("disabled", false);
                 if (data) {
                     $("#btnSubmit").prop("disabled", false);
+                    $("#showInvalid").prop("disabled", false);
                     $("#selectedFolderText").html(data + "/").wrap('<pre />');
                 }
             },
             error: function (e) {
-                $("#uploadFolder").prop("disabled", false);
+                $("#uploadZip").prop("disabled", false);
             }
         });
     });
@@ -63,8 +69,8 @@ $(document).ready(function () {
         var form = $('#fileUploadForm')[0];
         // Create an FormData object
         var data = new FormData(form);
-        data.append("path", filePath);
-        data.append("type", type);
+        //data.append("path", filePath);
+        //data.append("type", type);
         // If you want to add an extra field for the FormData
         //data.append("CustomField", "This is some extra data, testing");
         // disabled the submit button
@@ -74,9 +80,9 @@ $(document).ready(function () {
         $("#uploadFolder").prop("disabled", true);
         $("#showInvalid").prop("disabled", false);
         $.ajax({
-            type: "POST",
+            type: "post",
             enctype: 'multipart/form-data',
-            url: "/upload/",
+            url: "/photoValidator/",
             data: data,
             processData: false,
             contentType: false,
