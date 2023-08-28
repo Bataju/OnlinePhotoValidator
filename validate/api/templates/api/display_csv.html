@@ -13,7 +13,7 @@
     $(document).ready(function() {
         $("#Home").click(function (event) {
             event.preventDefault();
-            window.location.href = "{% url 'photoValidator' %}";
+            window.location.href = "{% url 'delete_all' %}";
         });
     });
     </script>
@@ -122,8 +122,8 @@
     <div class="button-container">
         <button id="Home" class="process-button">Home</button>
     </div>
-    <div>
-        <a href="{% url 'download_csv' %}" class="download-link">Download CSV</a>
+    <div class="button-container">
+        <a href="{% url 'download_csv' %}" class="process-button">Download CSV</a>
     </div>
 </body>
 </html>

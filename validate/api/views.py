@@ -246,6 +246,17 @@ def display_csv(request):
 
     return render(request, 'api/display_csv.html', {'csv_data': csv_data})
 
+def delete_all(request):
+    folder_to_delete = os.path.join(settings.MEDIA_ROOT)
+    if os.path.exists(folder_to_delete) and os.path.isdir(folder_to_delete):
+        try:
+            shutil.rmtree(folder_to_delete)
+        except Exception as e:
+            print(f"Error deleting folder: {e}")
+    
+    form = PhotoFolderUploadForm()
+    return render(request, 'api/index1.html', {'form': form})
+
 def download_and_delete_csv(request):
     path = request.session.get('path') + "/" + "results.csv"
     folder_to_delete = os.path.join(settings.MEDIA_ROOT)
@@ -254,9 +265,10 @@ def download_and_delete_csv(request):
         response = HttpResponse(csv_file.read(), content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename="results.csv"'
    
-    try:
-        shutil.rmtree(folder_to_delete)
-    except Exception as e:
-        print(f"Error deleting folder: {e}")
+    if os.path.exists(folder_to_delete) and os.path.isdir(folder_to_delete):
+        try:
+            shutil.rmtree(folder_to_delete)
+        except Exception as e:
+            print(f"Error deleting folder: {e}")
 
     return response
